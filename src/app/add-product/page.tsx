@@ -53,7 +53,7 @@ const AddProduct = () => {
           rounded="none"
           className="-mt-5 flex justify-center pb-[120px] md:my-8 md:pb-[20px]"
         >
-          <div className="flex w-full max-w-5xl flex-col items-center p-4 md:p-8">
+          <div className="flex w-full max-w-5xl flex-col items-center md:p-8">
             <div className="my-4 flex w-full justify-center gap-4 sm:gap-8">
               {[
                 { step: 1, label: "Product Information" },
@@ -86,7 +86,7 @@ const AddProduct = () => {
               ))}
             </div>
 
-            <Box border="none" shadow="none" className="mt-4 w-full">
+            <Box padding="0" border="none" shadow="none" className="md:p-4 mt-4 w-full">
               {currentStep === 1 && <StepOne />}
               {currentStep === 2 && <StepTwo previousStep={previousStep} />}
               {currentStep === 3 && <StepThree previousStep={previousStep} />}
@@ -94,7 +94,7 @@ const AddProduct = () => {
               {currentStep === 5 && <StepFive previousStep={previousStep} />}
             </Box>
 
-            <div className="mt-4 flex w-full flex-col-reverse justify-between gap-4 p-4 md:flex-row">
+            <div className="mt-4 flex w-full flex-col-reverse justify-between gap-4 md:p-4 md:flex-row">
               <div className="hidden w-full md:block md:w-40">
                 <Button
                   color="primary2"
@@ -113,7 +113,6 @@ const AddProduct = () => {
                   onClick={cancel}
                   className="cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary hover:bg-bgSecondary"
                 >
-                  <RiDeleteBinLine size={20} />
                   Cancel
                 </Button>
               </div>
@@ -132,7 +131,6 @@ const AddProduct = () => {
                       <Button
                         onClick={openModal}
                         color="primary2"
-                        className="rounded-lg bg-primary2 px-4 py-2 font-bold text-white hover:bg-primary2"
                       >
                         Publish
                         <FaRegCircleCheck size={25} />
@@ -141,8 +139,6 @@ const AddProduct = () => {
                     <div className="block md:hidden">
                       <Button
                         onClick={openModal}
-                        color="primary"
-                        className="rounded-lg bg-primary2 px-4 py-2 font-bold text-white hover:bg-primary2"
                       >
                         Publish
                         <FaRegCircleCheck size={25} />
@@ -155,7 +151,6 @@ const AddProduct = () => {
                       <Button
                         onClick={nextStep}
                         color="primary2"
-                        className="rounded-lg bg-primary2 px-4 py-2 font-bold text-white hover:bg-primary2"
                         disabled={currentStep === 5}
                       >
                         Continue
@@ -164,8 +159,6 @@ const AddProduct = () => {
                     <div className="block md:hidden">
                       <Button
                         onClick={nextStep}
-                        color="primary"
-                        className="rounded-lg bg-primary2 px-4 py-2 font-bold text-white hover:bg-primary2"
                         disabled={currentStep === 5}
                       >
                         Continue
@@ -217,7 +210,7 @@ const StepOne = () => {
 
   return (
     <div>
-      <Text className="md:text-primary2" size={"2xl"} font={"bold"}>
+      <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
         Product Information
       </Text>
       <form className="mt-4 flex flex-col gap-4">
@@ -308,7 +301,7 @@ const StepTwo = ({ previousStep }: { previousStep: () => void }) => {
         </Text>
       </div>
       <div>
-        <Text className="md:text-primary2" size={"2xl"} font={"bold"}>
+        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
           Product Detail Information
         </Text>
         <form className="mt-4 flex flex-col gap-4">
@@ -405,7 +398,7 @@ const StepTwo = ({ previousStep }: { previousStep: () => void }) => {
               {Array.from({ length: 10 }).map((_, index) => (
                 <div
                   key={index}
-                  className="flex h-12 w-28 items-center justify-evenly rounded-full border border-primary text-primary md:border-primary2 md:text-primary2"
+                  className="flex h-10 w-24 md:h-12 md:w-28 items-center justify-evenly rounded-full border border-primary text-primary md:border-primary2 md:text-primary2"
                 >
                   <Text
                     className="text-primary md:text-primary2"
@@ -438,7 +431,7 @@ const StepThree = ({ previousStep }: { previousStep: () => void }) => {
         </Text>
       </div>
       <div>
-        <Text className="md:text-primary2" size={"2xl"} font={"bold"}>
+        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
           Product Variant Creation
         </Text>
         <form className="mt-4 flex flex-col gap-4">
@@ -511,7 +504,7 @@ const StepFour = ({ previousStep }: { previousStep: () => void }) => {
         </Text>
       </div>
       <div>
-        <Text className="md:text-primary2" size={"2xl"} font={"bold"}>
+        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
           Logistics and Shipment Information
         </Text>
         <form className="mt-4 flex flex-col gap-4">
@@ -577,13 +570,13 @@ const StepFive = ({ previousStep }: { previousStep: () => void }) => {
         </Text>
       </div>
       <div>
-        <Text className="md:text-primary2" size={"2xl"} font={"bold"}>
+        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
           Bulk Purchase Discounts
         </Text>
         <form className="mt-4 flex flex-col gap-4">
           <div className="flex items-center gap-2 p-4 md:bg-bgSecondary">
             <div>
-              <Text size={"xl"} color={"gray"} font={"bold"} className="mb-8">
+              <Text color={"gray"} font={"bold"} className="md:text-xl mb-8">
                 Specify product quantity range and discount rate for discounts
               </Text>
               <div className="my-8">
@@ -601,7 +594,7 @@ const StepFive = ({ previousStep }: { previousStep: () => void }) => {
                 </select>
                 <div className="flex items-center gap-1">
                   <IoIosInformationCircle size={20} className="text-primary2" />
-                  <Text color={"primary2"}>
+                  <Text color={"primary2"} className="text-sm md:text-lg lg:text-xl">
                     How many product purchases do you want to determine the
                     product discount?
                   </Text>
@@ -622,7 +615,7 @@ const StepFive = ({ previousStep }: { previousStep: () => void }) => {
                 </select>
                 <div className="flex items-center gap-1">
                   <IoIosInformationCircle size={20} className="text-primary2" />
-                  <Text color={"primary2"}>
+                  <Text color={"primary2"} className="text-sm md:text-lg lg:text-xl">
                     What percentage discount do you want to set?
                   </Text>
                 </div>

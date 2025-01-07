@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
 import type {
   ReactNode,
@@ -54,21 +55,27 @@ const Button = ({
     color === "error"
       ? "bg-error text-white hover:bg-errorHover"
       : color === "secondary"
-      ? "bg-bgPowderBlue text-white hover:bg-textSecondary"
-      : `bg-${color} text-white hover:bg-${color}Hover`;
+        ? "bg-bgPowderBlue text-white hover:bg-textSecondary"
+        : color === "primary"
+          ? "bg-primary text-white hover:bg-primaryHover"
+          : color === "primary2"
+            ? "bg-primary2 text-white hover:bg-primary2Hover"
+            : `bg-primary text-white hover:bg-primaryHover`;
+
+  const getColorClassName = (color: string) => {
+    if (color === "error") return "text-error border border-error";
+    if (color === "secondary") return "text-secondary border border-secondary";
+    if (color === "primary") return "text-primary border border-primary";
+    if (color === "primary2") return "text-primary2 border border-primary2";
+    return `text-${color} border border-${color}`;
+  };
 
   const themeClassName =
     theme === "outline"
-      ? color === "error"
-        ? "text-error border border-error bg-transparent"
-        : color === "secondary"
-        ? "text-secondary border border-secondary bg-transparent hover:bg-secondary-200"
-        : `text-${color} border border-${color} bg-transparent hover:bg-${color}Hover hover:text-white`
+      ? `${getColorClassName(color)} bg-transparent hover:bg-${color}Hover hover:text-white`
       : colorClassName;
 
-  const computedClassName = `${baseClassName} ${themeClassName} ${
-    className ?? ""
-  }`;
+  const computedClassName = `${baseClassName} ${themeClassName} ${className ?? ""}`;
 
   if (as === "a" && "href" in rest) {
     return (
