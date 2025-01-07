@@ -13,10 +13,9 @@ import { TbPhotoPlus } from "react-icons/tb";
 import Button from "~/_components/Button";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsFileEarmarkText } from "react-icons/bs";
-import { FaCube, FaRegCircleCheck } from "react-icons/fa6";
+import { FaRegCircleCheck } from "react-icons/fa6";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { IoIosInformationCircle } from "react-icons/io";
-import { FaCheckCircle } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 
 const AddProduct = () => {
