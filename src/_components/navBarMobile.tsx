@@ -1,56 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import Spinner from "./Spinner";
 import { Switch } from "~/components/ui/switch";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import Cookie from "js-cookie";
-import { useBooleanValue, useUserDataStore } from "~/APIs/store";
-import { FaCalendarAlt } from "react-icons/fa";
-import { IoMdNotifications } from "react-icons/io";
 import { RiBook3Fill } from "react-icons/ri";
 import { FaBagShopping } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { BsCameraVideo } from "react-icons/bs";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { IoMdSearch } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
-import { Text } from "./Text";
-
-const useWindowDimensions = () => {
-  const isClient = typeof window === "object";
-  const [windowSize, setWindowSize] = useState(
-    isClient
-      ? { width: window.innerWidth, height: window.innerHeight }
-      : { width: undefined, height: undefined },
-  );
-
-  useEffect(() => {
-    if (!isClient) {
-      return;
-    }
-
-    const handleResize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isClient]);
-
-  return windowSize;
-};
 
 interface NavBarLinkProps {
   href: string;
@@ -73,24 +36,15 @@ const NavBarLink = ({
         href={href}
       >
         <Icon
-          className="h-7 w-7"
+          className="h-6 w-6"
         />
-        <p className={`${isActive ? "text-primary" : ""} text-sm mt-1`}>{label}</p>
+        <p className={`${isActive ? "text-primary" : ""} text-xs mt-1`}>{label}</p>
       </Link>
     </li>
   );
 };
 
 const NavBarMobile = () => {
-  const [profile, setProfile] = useState(false);
-  const toggleProfile = () => {
-    setProfile(!profile);
-  };
-  const [isClient, setIsClient] = useState(false);
-  const userData = useUserDataStore.getState().userData;
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   const { theme, setTheme } = useTheme();
   const url = usePathname();
 
@@ -105,13 +59,6 @@ const NavBarMobile = () => {
     { href: "/market", icon: FaBagShopping, label: "Market" },
     { href: "/more", icon: IoIosMore, label: "More" },
   ];
-
-  if (!isClient)
-    return (
-      <div className="absolute left-0 top-0 z-[9999] flex h-screen w-full items-center justify-center bg-bgPrimary">
-        <Spinner />
-      </div>
-    );
 
   return (
     <>
