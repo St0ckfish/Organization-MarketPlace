@@ -22,23 +22,20 @@ interface NavBarLinkProps {
   url: string;
 }
 
-const NavBarLink = ({
-  href,
-  icon: Icon,
-  label,
-  url,
-}: NavBarLinkProps) => {
+const NavBarLink = ({ href, icon: Icon, label, url }: NavBarLinkProps) => {
   const isActive = url === href;
   return (
-    <li className={`${isActive ? "border-primary text-primary" : ""} text-navLinks w-full flex justify-center items-center h-[85px] hover:bg-bgThird cursor-pointer hover:text-primary`}>
+    <li
+      className={`${isActive ? "border-primary text-primary" : ""} flex h-[85px] w-full cursor-pointer items-center justify-center text-navLinks hover:bg-bgThird hover:text-primary`}
+    >
       <Link
-        className={`text-md group mt-4 flex flex-col w-[40px] items-center gap-x-3.5 rounded-full border-primary font-sans font-semibold`}
+        className={`text-md group mt-4 flex w-[40px] flex-col items-center gap-x-3.5 rounded-full border-primary font-sans font-semibold`}
         href={href}
       >
-        <Icon
-          className="h-6 w-6"
-        />
-        <p className={`${isActive ? "text-primary" : ""} text-xs mt-1`}>{label}</p>
+        <Icon className="h-6 w-6" />
+        <p className={`${isActive ? "text-primary" : ""} mt-1 text-xs`}>
+          {label}
+        </p>
       </Link>
     </li>
   );
@@ -87,7 +84,7 @@ const NavBarMobile = () => {
                   <IoCalendarNumberOutline size={25} />
                 </Link>
               </div>
-              <div className="me-5  lg:me-0 lg:hidden">
+              <div className="me-5 lg:me-0 lg:hidden">
                 <Link
                   className="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none"
                   href="/"
@@ -120,7 +117,7 @@ const NavBarMobile = () => {
                       <IoChatbubblesOutline size={25} />
                     </Link>
                     <Link
-                      href="/communication"
+                      href="/meeting"
                       className="relative inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                     >
                       <BsCameraVideo size={25} />
@@ -133,8 +130,8 @@ const NavBarMobile = () => {
           <div
             dir={"ltr"}
             id="application-sidebar"
-            className={`hs-overlay hs-overlay-open:translate-x-0 fixed inset-x-0 bottom-0 z-[60] h-[90px] transform overflow-y-auto border-t border-borderPrimary bg-bgPrimary drop-shadow-md shadow-[0_-4px_6px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in [--auto-close:lg] lg:bottom-0 lg:end-auto lg:block lg:translate-x-0 lg:drop-shadow-none`}
-            >
+            className={`hs-overlay hs-overlay-open:translate-x-0 fixed inset-x-0 bottom-0 z-[60] h-[90px] transform overflow-y-auto border-t border-borderPrimary bg-bgPrimary shadow-[0_-4px_6px_rgba(0,0,0,0.1)] drop-shadow-md transition-all duration-300 ease-in [--auto-close:lg] dark:bg-bgSecondary lg:bottom-0 lg:end-auto lg:block lg:translate-x-0 lg:drop-shadow-none`}
+          >
             <nav
               className={`hs-accordion-group flex w-full`}
               // data-hs-accordion-always-open

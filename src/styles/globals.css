@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 html {
-  touch-action: none;
-  -ms-touch-action: none;
+  /* touch-action: none; */
+  /* -ms-touch-action: none; */
   min-zoom: 0.5;
   max-zoom: 1.1;
 }
@@ -27,13 +27,15 @@ html {
 .light {
   /* --primary: 62, 90, 240; #3e5af0 */
   --primary: 52, 152, 219; /* #3498DB */
-  --primary2: 16, 94, 245; /* #105EF5 */
+  --primary2: 0, 112, 255; /* #0070FF */
   --primary-hover: 33, 102, 148; /* #2d85c0 */
   --primary2-hover: 13, 67, 175; /* #0d43af */
   --navLinks: 84, 101, 111; /* #54656F */
   --bg-primary: 255, 255, 255; /* #ffffff */
   --bg-secondary: 245, 246, 250; /* #f5f6fa */
   --bg-third: 245, 250, 255; /* ##F5FAFF */
+  --bg-fourth: #DFEBFF; /* #DFEBFF */
+  --bg-input: 243, 244, 246;  /* #F3F4F6 */
   --comment: 241, 245, 249; /* #F1F5F9 */ 
   --bg-gray: 224, 224, 224; /* #e0e0e0 */
   --text-primary: 20, 27, 52; /* #141b34 */
@@ -57,14 +59,17 @@ html {
 
 .dark {
   --primary: 52, 152, 219; /* #3498DB */
-  --primary2: 16, 94, 245; /* #105EF5 */
+  --primary2: 0, 112, 255; /* #0070FF */
   --navLinks: 84, 101, 111; /* #54656F */
   --primary-hover: 33, 102, 148; /* #2d85c0 */
   --primary2-hover: 13, 67, 175; /* #0d43af */
   --navLinks: 84, 101, 111; /* #54656F */
+  --bg-primary: 0, 0, 0; /* #000000 */
   --bg-secondary: 23, 28, 35; /* #171c23 */
   --bg-third: 7, 31, 58; /* #071f3a */
+  --bg-fourth: #0d43af6c; /* #0d43af1e */
   --bg-gray: 224, 224, 224; /* #e0e0e0 */
+  --bg-input: 23, 28, 35; /* #171c23 */
   --text-primary: 253, 253, 255; /* #fdfdff */
   --text-muted: 108, 108, 108; /* #6c6c6c */
   --text-secondary: 82, 100, 132; /* #526484 */
@@ -149,48 +154,33 @@ html {
   }
 }
 
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
 
-/* .RadioGroupRoot {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
 
-.RadioGroupItem {
-	background-color: white;
-	width: 25px;
-	height: 25px;
-	border-radius: 100%;
-	box-shadow: 0 2px 10px var(--black-a7);
-}
-.RadioGroupItem:hover {
-	background-color: var(--violet-3);
-}
-.RadioGroupItem:focus {
-	box-shadow: 0 0 0 2px black;
-}
+  ::-webkit-scrollbar-thumb {
+    background: #0070FF;
+    border-radius: 10px;
+  }
 
-.RadioGroupIndicator {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 100%;
-	position: relative;
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0d43af;
+  }
+  
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar-thumb {
+      background: #3498DB;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2d85c0;
+    }
+  }
 }
-.RadioGroupIndicator::after {
-	content: "";
-	display: block;
-	width: 11px;
-	height: 11px;
-	border-radius: 50%;
-	background-color: var(--violet-11);
-}
-
-.Label {
-	color: white;
-	font-size: 15px;
-	line-height: 1;
-	padding-left: 15px;
-} */
-

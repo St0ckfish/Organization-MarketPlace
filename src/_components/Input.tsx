@@ -10,7 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string | undefined;
   className?: string;
   dir?: string;
-  theme?: "solid" | "transparent" | "comment";
+  theme?: "solid" | "transparent" | "gray";
   border?: "primary" | "gray" | "none";
   rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full"; 
 }
@@ -36,8 +36,8 @@ const Input: React.FC<InputProps> = ({
   const themeClasses =
     theme === "transparent"
       ? "bg-transparent"
-      : theme === "comment"
-      ? "bg-comment rounded-xl"
+      : theme === "gray"
+      ? "bg-bgInput rounded-xl"
       : "bg-bgSecondary";
 
   const borderClass =
