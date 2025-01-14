@@ -7,6 +7,15 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
+      },
+      animation: {
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -21,6 +30,8 @@ export default {
         bgPrimary: "rgba(var(--bg-primary))",
         bgSecondary: "rgba(var(--bg-secondary))",
         bgThird: "rgba(var(--bg-third))",
+        bgFourth: "var(--bg-fourth)",
+        bgInput: "rgba(var(--bg-input))",
         bgPowderBlue: "rgba(var(--bg-powder-blue))",
         bgGray: "rgba(var(--bg-gray))",
         textPrimary: "rgba(var(--text-primary))",
@@ -84,5 +95,7 @@ export default {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide'),
   ],
 } satisfies Config;

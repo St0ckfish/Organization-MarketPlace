@@ -6,7 +6,7 @@ import { FaStar, FaPlus } from "react-icons/fa6";
 const Products = ({ products }: { products?: any }) => {
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 p-4 xl:grid-cols-2">
         {products?.length > 0 ? (
           products.map((product: any) => (
             <div

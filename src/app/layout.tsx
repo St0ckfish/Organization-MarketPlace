@@ -6,15 +6,19 @@ import { TRPCReactProvider } from "~/trpc/react";
 import NavBar from "../_components/navBar";
 import ThemeProvider from "./providers/themeProvider";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import NavBarMobile from "~/_components/navBarMobile";
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const pathname = usePathname(); 
+  const isAuthPage =
+    pathname === "/sign-up" || pathname === "/sign-in" || pathname === "/forget-password" || pathname === "/reset-password" || pathname === "/change-password"; 
+
   useEffect(() => {
     (document.documentElement.style as any).zoom = "1";
 
-    // Zoom control logic
     const handleZoom = (e: WheelEvent | KeyboardEvent) => {
       if ((e as KeyboardEvent).ctrlKey || (e as WheelEvent).ctrlKey) {
         e.preventDefault();
@@ -28,9 +32,9 @@ export default function RootLayout({
         if (e.type === "wheel") {
           const wheelEvent = e as WheelEvent;
           if (wheelEvent.deltaY < 0) {
-            newZoom = Math.min(currentZoom + 0.1, 1.1); // Max 110%
+            newZoom = Math.min(currentZoom + 0.1, 1.1);
           } else {
-            newZoom = Math.max(currentZoom - 0.1, 0.7); // Min 70%
+            newZoom = Math.max(currentZoom - 0.1, 0.7);
           }
         }
 
@@ -47,14 +51,12 @@ export default function RootLayout({
       }
     };
 
-    // Prevent pinch-to-zoom on touch devices
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 1) {
         e.preventDefault();
       }
     };
 
-    // Prevent double-tap zoom
     let lastTouchEnd = 0;
     const handleTouchEnd = (e: TouchEvent) => {
       const now = Date.now();
@@ -64,13 +66,11 @@ export default function RootLayout({
       lastTouchEnd = now;
     };
 
-    // Add event listeners
     window.addEventListener("wheel", handleZoom as any, { passive: false });
     window.addEventListener("keydown", handleZoom as any);
     document.addEventListener("touchmove", handleTouchMove, { passive: false });
     document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
-    // Cleanup
     return () => {
       window.removeEventListener("wheel", handleZoom as any);
       window.removeEventListener("keydown", handleZoom as any);
@@ -86,18 +86,26 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <title>Organization</title>
-        <meta name="description" content="MarketPlace Organization" />
+        <title>Person</title>
+        <meta name="description" content="MarketPlace Person" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, initial-scale=1.0, user-scalable=yes"
+        />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </head>
-      <body className="bg-bgSecondary">
+      <body className="bg-bgPrimary md:bg-bgSecondary">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <div className="hidden md:block">
-            <NavBar />
-          </div>
-          <div className="block md:hidden">
-            <NavBarMobile />
-          </div>
+          {!isAuthPage && (
+            <>
+              <div className="hidden md:block">
+                <NavBar />
+              </div>
+              <div className="block md:hidden">
+                <NavBarMobile />
+              </div>
+            </>
+          )}
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeProvider>
       </body>

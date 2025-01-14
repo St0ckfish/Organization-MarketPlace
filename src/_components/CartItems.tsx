@@ -6,7 +6,7 @@ import { FaStar, FaPlus } from "react-icons/fa6";
 const CartItems = ({ cartItems }: { cartItems?: any }) => {
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 p-4 md:p-0">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4 md:p-0">
         {cartItems?.length > 0 ? (
           cartItems.map((item: any) => (
             <div
