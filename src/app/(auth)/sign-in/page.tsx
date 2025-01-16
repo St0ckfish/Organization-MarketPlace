@@ -5,16 +5,59 @@ import React, { useState } from "react";
 import Button from "~/_components/Button";
 import Input from "~/_components/Input";
 import { Text } from "~/_components/Text";
+import { useLanguageStore } from "~/APIs/store";
+
+const translations = {
+  en: {
+    welcomeBack: "Welcome Back",
+    dontHaveAccount: "Don't have an account?",
+    signUp: "Sign Up",
+    emailLabel: "Email",
+    emailPlaceholder: "Enter Your Email",
+    passwordLabel: "Password",
+    passwordPlaceholder: "Enter Your Password",
+    rememberMe: "Remember me",
+    forgotPassword: "Forgot Password?",
+    loginButton: "Log in",
+  },
+  ar: {
+    welcomeBack: "مرحبًا بعودتك",
+    dontHaveAccount: "ليس لديك حساب؟",
+    signUp: "إنشاء حساب",
+    emailLabel: "البريد الإلكتروني",
+    emailPlaceholder: "أدخل بريدك الإلكتروني",
+    passwordLabel: "كلمة المرور",
+    passwordPlaceholder: "أدخل كلمة المرور الخاصة بك",
+    rememberMe: "تذكرني",
+    forgotPassword: "نسيت كلمة المرور؟",
+    loginButton: "تسجيل الدخول",
+  },
+  fr: {
+    welcomeBack: "Bon retour",
+    dontHaveAccount: "Vous n'avez pas de compte ?",
+    signUp: "S'inscrire",
+    emailLabel: "E-mail",
+    emailPlaceholder: "Entrez votre e-mail",
+    passwordLabel: "Mot de passe",
+    passwordPlaceholder: "Entrez votre mot de passe",
+    rememberMe: "Souviens-toi de moi",
+    forgotPassword: "Mot de passe oublié ?",
+    loginButton: "Se connecter",
+  },
+};
 
 function Signin() {
   const [isChecked, setIsChecked] = useState(false);
+
+  const language = useLanguageStore((state) => state.language); // Get the current language
+  const t = translations[language] || translations.en; // Fetch translations for the current language
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
   return (
-    <div className="flex h-screen">
+    <div dir={language === "ar" ? "rtl" : "ltr"} className="flex h-screen">
       {/* Left Section */}
       <div className="flex max-h-screen w-full items-start justify-center overflow-auto bg-bgPrimary py-16 pt-40 scrollbar-hide md:w-1/2 xl:w-2/3">
         <div className="w-4/5 lg:w-2/3 xl:w-1/2">
@@ -24,27 +67,30 @@ function Signin() {
             className="mb-8"
           />
           <Text font={"bold"} size={"4xl"} className="mb-2">
-            Welcome Back
+            {t.welcomeBack}
           </Text>
           <div className="flex gap-2">
-            <Text className="mb-8 text-textSecondary">
-              Don&apos;t have an account?
-            </Text>
-            <a href="/sign-up" className="text-primary font-medium hover:underline">Sign Up</a>
+            <Text className="mb-8 text-textSecondary">{t.dontHaveAccount}</Text>
+            <a
+              href="/sign-up"
+              className="font-medium text-primary hover:underline"
+            >
+              {t.signUp}
+            </a>
           </div>
           <div className="space-y-8 py-8">
             <Input
               theme="gray"
               border="none"
               type="email"
-              label="Email"
-              placeholder="Enter Your Email"
+              label={t.emailLabel}
+              placeholder={t.emailPlaceholder}
             />
             <Input
-              label="Password"
+              label={t.passwordLabel}
               theme="gray"
               border="none"
-              placeholder="Enter Your Password"
+              placeholder={t.passwordPlaceholder}
               type="password"
             />
             <div className="flex items-center justify-between">
@@ -78,18 +124,18 @@ function Signin() {
                       </svg>
                     )}
                   </div>
-                  <span className="ml-2 text-gray-700">Remember me</span>
+                  <span className="mx-2 text-gray-700">{t.rememberMe}</span>
                 </label>
               </div>
               <a
                 href="/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
-                Forgot Password?
+                {t.forgotPassword}
               </a>
             </div>
             <Button className="mb-10 py-6" color="primary">
-              Log in
+              {t.loginButton}
             </Button>
           </div>
         </div>

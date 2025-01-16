@@ -14,8 +14,74 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import Products from "~/_components/Porducts";
 import { useRouter } from "next/navigation";
 import { BsFillFilterSquareFill } from "react-icons/bs";
+import { useLanguageStore } from "~/APIs/store";
+
+const translations = {
+  en: {
+    marketPlace: "Market Place",
+    searchPlaceholder: "Search for Market",
+    product: "Product",
+    service: "Service",
+    addProduct: "Add Product",
+    addService: "Add Service",
+    shopForSuccess: "Shop for Success:",
+    studyTools: "Study Tools You Need",
+    exploreText:
+      "Explore our wide selection of products designed to enhance your study experience. From essential supplies to innovative tools, discover everything you need to stay organized, focused, and motivated. Start equipping yourself for academic excellence today.",
+    viewAllProducts: "View all products",
+    findAnyProduct: "Find any product whether it's stuff you need for studying",
+    boostLearning: "Boost Your Learning Journey:",
+    interactiveLessons: "Interactive Lessons, Study Kits, and Expert Advice",
+    viewAllServices: "View all Services",
+    findServices: "Find services and resources to support your study needs!",
+    topProduct: "Top product",
+  },
+  ar: {
+    marketPlace: "مكان السوق",
+    searchPlaceholder: "ابحث عن السوق",
+    product: "منتج",
+    service: "خدمة",
+    addProduct: "إضافة منتج",
+    addService: "إضافة خدمة",
+    shopForSuccess: "تسوق من أجل النجاح:",
+    studyTools: "أدوات الدراسة التي تحتاجها",
+    exploreText:
+      "استكشف مجموعة واسعة من المنتجات المصممة لتعزيز تجربة دراستك. من المستلزمات الأساسية إلى الأدوات المبتكرة، اكتشف كل ما تحتاجه للبقاء منظمًا ومركّزًا ومتحفزًا. ابدأ تجهيز نفسك للتميز الأكاديمي اليوم.",
+    viewAllProducts: "عرض جميع المنتجات",
+    findAnyProduct: "اعثر على أي منتج سواء كان ما تحتاجه للدراسة",
+    boostLearning: "عزز رحلتك التعليمية:",
+    interactiveLessons: "دروس تفاعلية، مجموعات دراسية، ونصائح الخبراء",
+    viewAllServices: "عرض جميع الخدمات",
+    findServices: "اعثر على الخدمات والموارد لدعم احتياجات دراستك!",
+    topProduct: "أفضل منتج",
+  },
+  fr: {
+    marketPlace: "Place du marché",
+    searchPlaceholder: "Rechercher sur le marché",
+    product: "Produit",
+    service: "Service",
+    addProduct: "Ajouter un produit",
+    addService: "Ajouter un service",
+    shopForSuccess: "Achetez pour réussir:",
+    studyTools: "Outils d'étude dont vous avez besoin",
+    exploreText:
+      "Découvrez notre large sélection de produits conçus pour améliorer votre expérience d'étude. Des fournitures essentielles aux outils innovants, découvrez tout ce dont vous avez besoin pour rester organisé, concentré et motivé. Commencez à vous équiper pour l'excellence académique dès aujourd'hui.",
+    viewAllProducts: "Voir tous les produits",
+    findAnyProduct: "Trouvez tout produit dont vous avez besoin pour étudier",
+    boostLearning: "Améliorez votre parcours d'apprentissage:",
+    interactiveLessons:
+      "Leçons interactives, kits d'étude et conseils d'experts",
+    viewAllServices: "Voir tous les services",
+    findServices:
+      "Trouvez des services et des ressources pour vos besoins d'étude!",
+    topProduct: "Meilleur produit",
+  },
+};
 
 const Market = () => {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language] || translations.en;
+
   const router = useRouter();
   const [selected, setSelected] = useState("product");
   const [search, setSearch] = useState("");
@@ -235,11 +301,11 @@ const Market = () => {
     <>
       <Container>
         <div className="flex gap-5">
-          <div className="w-3/7 z-10 -m-5 hidden h-screen bg-bgSecondary pl-5 pt-5 shadow-[4px_0_4px_rgba(0,0,0,0.05)] md:block xl:w-1/5">
+          <div className="w-3/7 z-10 -m-5 hidden h-screen bg-bgSecondary px-5 pt-5 shadow-[4px_0_4px_rgba(0,0,0,0.05)] md:block xl:w-1/5">
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="mb-2 hidden min-w-[250px] md:block">
                 <Text font={"bold"} className="text-2xl md:text-3xl">
-                  Market Place
+                  {t.marketPlace}
                 </Text>
               </div>
             </div>
@@ -247,7 +313,7 @@ const Market = () => {
               <div className="hidden justify-between text-center max-[502px]:grid max-[502px]:justify-center md:flex">
                 <div className="mb-3 hidden md:block">
                   <label htmlFor="icon" className="sr-only">
-                    Search
+                    {t.searchPlaceholder}
                   </label>
                   <div className="relative min-w-[150px]">
                     <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
@@ -273,7 +339,7 @@ const Market = () => {
                       id="icon"
                       name="icon"
                       className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                      placeholder="Search for Market"
+                      placeholder={t.searchPlaceholder}
                     />
                   </div>
                 </div>
@@ -289,7 +355,7 @@ const Market = () => {
                   alt="Product"
                   className="w-[25px]"
                 />
-                <Text font={"bold"}>Product</Text>
+                <Text font={"bold"}>{t.product}</Text>
               </div>
               <div
                 className={`${
@@ -302,7 +368,7 @@ const Market = () => {
                   alt="Service"
                   className="w-[25px]"
                 />
-                <Text font={"bold"}>Service</Text>
+                <Text font={"bold"}>{t.service}</Text>
               </div>
             </div>
           </div>
@@ -324,10 +390,10 @@ const Market = () => {
                       onClick={handleClickButton}
                       className="hidden md:block"
                     >
-                      Add Product
+                      {t.addProduct}
                     </Button>
                   ) : (
-                    <Button className="hidden md:block">Add Service</Button>
+                    <Button className="hidden md:block">{t.addService}</Button>
                   )}
                 </div>
               </div>
@@ -352,7 +418,7 @@ const Market = () => {
                       alt="Product"
                       className="w-[25px]"
                     />
-                    <Text font={"bold"}>Product</Text>
+                    <Text font={"bold"}>{t.product}</Text>
                   </div>
                   <div
                     className={`${
@@ -367,7 +433,7 @@ const Market = () => {
                       alt="Service"
                       className="w-[25px]"
                     />
-                    <Text font={"bold"}>Service</Text>
+                    <Text font={"bold"}>{t.service}</Text>
                   </div>
                 </div>
               </div>
@@ -380,28 +446,24 @@ const Market = () => {
                           font={"bold"}
                           className="text-center text-[25px] md:text-[35px] xl:text-[48px]"
                         >
-                          Shop for Success:
+                          {t.shopForSuccess}
                         </Text>
                         <Text
                           font={"bold"}
                           className="text-center text-[25px] md:text-[35px] xl:text-[48px]"
                         >
-                          Study Tools You Need
+                          {t.studyTools}
                         </Text>
                         <Text
                           font={"medium"}
                           className="md:text-md mt-4 text-center text-sm lg:text-xl"
                         >
-                          Explore our wide selection of products designed to
-                          enhance your study experience. From essential supplies
-                          to innovative tools, discover everything you need to
-                          stay organized, focused, and motivated. Start
-                          equipping yourself for academic excellence today.
+                          {t.exploreText}
                         </Text>
                       </div>
                       <div className="mb-3 block min-w-[350px] md:hidden">
                         <label htmlFor="icon" className="sr-only">
-                          Search
+                          {t.searchPlaceholder}
                         </label>
                         <div className="relative flex w-full">
                           <input
@@ -410,10 +472,10 @@ const Market = () => {
                             id="icon"
                             name="icon"
                             className="block w-full rounded-lg border border-borderPrimary px-4 py-2 text-sm shadow outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                            placeholder="Search for any product"
+                            placeholder={t.searchPlaceholder}
                           />
                           <BsFillFilterSquareFill
-                            className="absolute right-2 top-[6px] cursor-pointer text-primary"
+                            className={`absolute ${language == "ar" ? "left-2" : "right-2"} top-[6px] cursor-pointer text-primary`}
                             size={25}
                           />
                         </div>
@@ -431,14 +493,13 @@ const Market = () => {
                         font={"bold"}
                         className="mt-6 text-center text-[25px] md:text-[42px] xl:text-[48px]"
                       >
-                        View all products
+                        {t.viewAllProducts}
                       </Text>
                       <Text
                         font={"medium"}
                         className="md:text-md mt-4 text-center text-sm lg:text-xl"
                       >
-                        Find any product whether it&apos;s stuff you need for
-                        studying
+                        {t.findAnyProduct}
                       </Text>
                     </div>
                     <CartItems cartItems={cartItems} />
@@ -447,14 +508,19 @@ const Market = () => {
                       href="/opream"
                       className="flex items-center gap-2 rounded border-2 border-borderSecondary px-6 py-4 font-semibold hover:border-primary2 hover:bg-bgThird hover:text-primary2"
                     >
-                      SEE ALL <IoMdArrowForward className="text-xl" />
+                      {t.viewAllProducts}{" "}
+                      <IoMdArrowForward
+                        className={`text-xl ${
+                          language === "ar" ? "rotate-180" : ""
+                        }`}
+                      />{" "}
                     </Link>
                     <div className="xl:1/2 flex w-full flex-col items-center p-4 md:w-2/3">
                       <Text
                         font={"bold"}
                         className="text-[25px] md:text-[35px] xl:text-[48px]"
                       >
-                        Top product
+                        {t.topProduct}
                       </Text>
                     </div>
                   </div>
@@ -469,18 +535,18 @@ const Market = () => {
                           font={"bold"}
                           className="text-center text-[25px] md:text-[35px] xl:text-[48px]"
                         >
-                          Boost Your Learning Journey:
+                          {t.boostLearning}
                         </Text>
                         <Text
                           font={"bold"}
                           className="text-center text-[25px] md:text-[35px] xl:text-[48px]"
                         >
-                          Interactive Lessons, Study Kits, and Expert Advice
+                          {t.interactiveLessons}
                         </Text>
                       </div>
                       <div className="mb-3 block min-w-[350px] md:hidden">
                         <label htmlFor="icon" className="sr-only">
-                          Search
+                          {t.searchPlaceholder}
                         </label>
                         <div className="relative flex w-full">
                           <input
@@ -489,7 +555,7 @@ const Market = () => {
                             id="icon"
                             name="icon"
                             className="block w-full rounded-lg border border-borderPrimary px-4 py-2 text-sm shadow outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                            placeholder="Search for any product"
+                            placeholder={t.searchPlaceholder}
                           />
                           <BsFillFilterSquareFill
                             className="absolute right-2 top-[6px] cursor-pointer text-primary"
@@ -503,14 +569,14 @@ const Market = () => {
                         font={"bold"}
                         className="text-center text-[25px] md:text-[35px] xl:text-[48px]"
                       >
-                        View all Services
+                        {t.viewAllServices}
                       </Text>
                       <Text
                         font={"medium"}
                         size={"xl"}
                         className="mt-4 text-center"
                       >
-                        Find services and resources to support your study needs!
+                        {t.findServices}
                       </Text>
                     </div>
                     <CartItems cartItems={cartItemsService} />
@@ -519,14 +585,19 @@ const Market = () => {
                       href="/opream"
                       className="flex items-center gap-2 rounded border-2 border-borderSecondary px-6 py-4 font-semibold hover:border-primary2 hover:bg-bgThird hover:text-primary2"
                     >
-                      SEE ALL <IoMdArrowForward className="text-xl" />
+                      {t.viewAllServices}{" "}
+                      <IoMdArrowForward
+                        className={`text-xl ${
+                          language === "ar" ? "rotate-180" : ""
+                        }`}
+                      />{" "}
                     </Link>
                     <div className="xl:1/2 flex w-full flex-col items-center p-4 md:w-2/3">
                       <Text
                         font={"bold"}
                         className="text-[25px] md:text-[35px] xl:text-[48px]"
                       >
-                        Top product
+                        {t.topProduct}
                       </Text>
                     </div>
                   </div>
