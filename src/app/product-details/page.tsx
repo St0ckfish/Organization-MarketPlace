@@ -10,8 +10,103 @@ import { useState } from "react";
 import Button from "~/_components/Button";
 import Products from "~/_components/Porducts";
 import { IoArrowBack } from "react-icons/io5";
+import { useLanguageStore } from "~/APIs/store";
+
+
+const translations = {
+  en: {
+    marketPlace: "Market Place",
+    searchPlaceholder: "Search for Market",
+    product: "Product",
+    service: "Service",
+    addProduct: "Add Product",
+    reviews: "Customer Reviews",
+    customerReviews: "Customer Reviews",
+    description: "Description",
+    color: "Color",
+    connectWithSeller: "Connect With Seller",
+    details: "Details",
+    sku: "SKU",
+    category: "Category",
+    tags: "Tags",
+    electronics: "Electronics",
+    mobile: "Mobile",
+    gadgets: "Gadgets",
+    reviewsHeader: "Reviews",
+    reviewPlaceholder: "Write your review here...",
+    addReview: "Add Review",
+    submit: "Submit",
+    topProducts: "Top Products",
+    sortBy: "Sort By",
+    price: "Price",
+    popularity: "Popularity",
+    rating: "Rating",
+    newest: "Newest",
+  },
+  ar: {
+    marketPlace: "مكان السوق",
+    searchPlaceholder: "ابحث عن السوق",
+    product: "منتج",
+    service: "خدمة",
+    addProduct: "إضافة منتج",
+    reviews: "آراء العملاء",
+    customerReviews: "آراء العملاء",
+    description: "الوصف",
+    color: "اللون",
+    connectWithSeller: "التواصل مع البائع",
+    details: "التفاصيل",
+    sku: "رمز التخزين التعريفي",
+    category: "الفئة",
+    tags: "العلامات",
+    electronics: "الإلكترونيات",
+    mobile: "الموبايلات",
+    gadgets: "الأجهزة",
+    reviewsHeader: "التقييمات",
+    reviewPlaceholder: "اكتب تقييمك هنا...",
+    addReview: "أضف تقييم",
+    submit: "إرسال",
+    topProducts: "أفضل المنتجات",
+    sortBy: "فرز حسب",
+    price: "السعر",
+    popularity: "الشعبية",
+    rating: "التقييم",
+    newest: "الأحدث",
+  },
+  fr: {
+    marketPlace: "Place du marché",
+    searchPlaceholder: "Rechercher sur le marché",
+    product: "Produit",
+    service: "Service",
+    addProduct: "Ajouter un produit",
+    reviews: "Avis des clients",
+    customerReviews: "Avis des clients",
+    description: "Description",
+    color: "Couleur",
+    connectWithSeller: "Contacter le vendeur",
+    details: "Détails",
+    sku: "Code SKU",
+    category: "Catégorie",
+    tags: "Tags",
+    electronics: "Électronique",
+    mobile: "Mobile",
+    gadgets: "Gadgets",
+    reviewsHeader: "Avis",
+    reviewPlaceholder: "Écrivez votre avis ici...",
+    addReview: "Ajouter un avis",
+    submit: "Soumettre",
+    topProducts: "Meilleurs produits",
+    sortBy: "Trier par",
+    price: "Prix",
+    popularity: "Popularité",
+    rating: "Évaluation",
+    newest: "Nouveauté",
+  },
+};
 
 const ProductDetails = () => {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language] || translations.en;
+
   const [selected, setSelected] = useState("");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
@@ -53,6 +148,7 @@ const ProductDetails = () => {
       productOwner: "Jane Smith",
       productOwnerPhoto: "/images/productOwnder.png",
       reviews: "4.8",
+
     },
   ];
 
@@ -64,7 +160,7 @@ const ProductDetails = () => {
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="mb-2 hidden min-w-[250px] md:block">
                 <Text font={"bold"} className="text-2xl md:text-3xl">
-                  Market Place
+                {t.marketPlace}
                 </Text>
               </div>
             </div>
@@ -72,7 +168,7 @@ const ProductDetails = () => {
               <div className="hidden justify-between text-center max-[502px]:grid max-[502px]:justify-center md:flex">
                 <div className="mb-3 hidden md:block">
                   <label htmlFor="icon" className="sr-only">
-                    Search
+                  {t.searchPlaceholder}
                   </label>
                   <div className="relative min-w-[150px]">
                     <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
@@ -98,7 +194,7 @@ const ProductDetails = () => {
                       id="icon"
                       name="icon"
                       className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                      placeholder="Search for Market"
+                      placeholder={t.searchPlaceholder}
                     />
                   </div>
                 </div>
@@ -114,7 +210,7 @@ const ProductDetails = () => {
                   alt="Product"
                   className="w-[25px]"
                 />
-                <Text font={"bold"}>Product</Text>
+                <Text font={"bold"}>{t.product}</Text>
               </div>
               <div
                 className={`${
@@ -127,7 +223,7 @@ const ProductDetails = () => {
                   alt="Service"
                   className="w-[25px]"
                 />
-                <Text font={"bold"}>Service</Text>
+                <Text font={"bold"}>{t.service}</Text>
               </div>
             </div>
           </div>
@@ -135,7 +231,7 @@ const ProductDetails = () => {
             <div className="flex items-center">
               <div className="mb-4 flex w-full justify-end">
                 <div className="flex w-[220px] items-center gap-4 md:w-fit">
-                  <Button className="hidden md:block">Add Product</Button>
+                  <Button className="hidden md:block">{t.addProduct}</Button>
                 </div>
               </div>
             </div>
@@ -174,7 +270,7 @@ const ProductDetails = () => {
                   </div>
                   <div className="w-full xl:w-1/2">
                     <Text font={"bold"} size={"4xl"} className="text-start md:text-center xl:text-start">
-                      Smartphone
+                    {t.mobile}
                     </Text>
                     <Text
                       font={"semiBold"}
@@ -193,20 +289,17 @@ const ProductDetails = () => {
                         <FaStarHalf />
                       </div>
                       <Text font={"semiBold"} size={"xl"} color={"gray"}>
-                        5 Customer Reviews
+                        5 {t.customerReviews}
                       </Text>
                     </div>
                     <Text
                       size={"xl"}
                       className="text-start md:text-center xl:text-start text-md mt-4 w-full xl:max-w-[400px]"
                     >
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      {t.description}
                     </Text>
                     <Text size={"xl"} color={"gray"} className="text-start md:text-center xl:text-start my-4">
-                      Color
+                    {t.color}
                     </Text>
                     <div className="mb-8 flex items-center justify-start md:justify-center xl:justify-start gap-4">
                       <FaCircle className="text-2xl text-red-500" />
@@ -218,14 +311,14 @@ const ProductDetails = () => {
                         href="#"
                         className="rounded-xl border border-borderSecondary p-4 text-xl font-semibold"
                       >
-                        Connect With Seller
+                        {t.connectWithSeller}
                       </Link>
                     </div>
                     <div className=" mt-14 border-b border-borderPrimary"></div>
                     <table className="mt-10 w-full table-auto">
                       <tbody>
                         <tr>
-                          <td className="px-4 py-2 text-textSecondary">SKU</td>
+                          <td className="px-4 py-2 text-textSecondary">{t.sku}</td>
                           <td className="px-4 py-2 text-textSecondary">:</td>
                           <td className="px-4 py-2 text-textSecondary">
                             SS001
@@ -233,18 +326,18 @@ const ProductDetails = () => {
                         </tr>
                         <tr>
                           <td className="px-4 py-2 text-textSecondary">
-                            Category
+                          {t.category}
                           </td>
                           <td className="px-4 py-2 text-textSecondary">:</td>
                           <td className="px-4 py-2 text-textSecondary">
-                            Smartphone
+                          {t.mobile}
                           </td>
                         </tr>
                         <tr>
-                          <td className="px-4 py-2 text-textSecondary">Tags</td>
+                          <td className="px-4 py-2 text-textSecondary">{t.tags}</td>
                           <td className="px-4 py-2 text-textSecondary">:</td>
                           <td className="px-4 py-2 text-textSecondary">
-                            Electronics, Mobile, Gadgets
+                          {t.electronics}, {t.mobile}, {t.gadgets}
                           </td>
                         </tr>
                       </tbody>
@@ -259,7 +352,7 @@ const ProductDetails = () => {
                     font={"bold"}
                     className="text-[25px] md:text-[35px] xl:text-[48px]"
                   >
-                    Details
+                    {t.details}
                   </Text>
                   </div>
                   <div className="block md:hidden">
@@ -267,7 +360,7 @@ const ProductDetails = () => {
                     font={"bold"}
                     className="text-[25px] md:text-[35px] xl:text-[48px]"
                   >
-                    Details
+                    {t.details}
                   </Text>
                   </div>
                   
@@ -301,16 +394,16 @@ const ProductDetails = () => {
                 <div className="flex flex-col justify-center lg:flex-row">
                   <div className="w-full p-4">
                     <Text font={"bold"} size={"xl"} className="mb-4">
-                      Reviews
+                    {t.reviewsHeader}
                     </Text>
 
                     <div className="flex items-center justify-between border-b border-borderPrimary pb-2">
                       <div className="flex items-center">
-                        <Text font={"bold"} size={"4xl"} className="pr-2">
+                        <Text font={"bold"} size={"4xl"} className="px-2">
                           4.2
                         </Text>
                         <Text color={"gray"} className="text-sm lg:text-xl">
-                          - 54 Reviews
+                          - 54 {t.reviewsHeader}
                         </Text>
                       </div>
                       <div className="relative inline-block w-48">
@@ -318,16 +411,16 @@ const ProductDetails = () => {
                           htmlFor="sortBy"
                           className="mb-2 block text-textPrimary"
                         >
-                          Sort By
+                          {t.sortBy}
                         </label>
                         <select
                           id="sortBy"
                           className="block w-full rounded border border-borderPrimary bg-bgPrimary px-3 py-2 text-gray-700 text-textPrimary shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                         >
-                          <option value="price">Price</option>
-                          <option value="popularity">Popularity</option>
-                          <option value="rating">Rating</option>
-                          <option value="newest">Newest</option>
+                          <option value="price">{t.price}</option>
+                          <option value="popularity">{t.popularity}</option>
+                          <option value="rating">{t.rating}</option>
+                          <option value="newest">{t.newest}</option>
                         </select>
                       </div>
                     </div>
@@ -406,7 +499,7 @@ const ProductDetails = () => {
                   </div>
                   <div className="w-full">
                     <Text font={"bold"} size={"xl"}>
-                      Add Review
+                      {t.addReview}
                     </Text>
                     <div className="w-full space-y-4">
                       <div className="flex gap-4 py-2 text-yellow-500">
@@ -428,11 +521,11 @@ const ProductDetails = () => {
                       <textarea
                         value={review}
                         onChange={handleReviewChange}
-                        placeholder="Write your review here..."
+                        placeholder={t.reviewPlaceholder}
                         rows={10}
                         className="w-full rounded border border-borderPrimary px-3 py-2 shadow focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                       />
-                      <Button>Submit</Button>
+                      <Button>{t.submit}</Button>
                     </div>
                   </div>
                 </div>
@@ -442,7 +535,7 @@ const ProductDetails = () => {
                       font={"bold"}
                       className="text-[25px] md:text-[35px] xl:text-[48px]"
                     >
-                      Top product
+                      {t.topProducts}
                     </Text>
                   </div>
                 </div>

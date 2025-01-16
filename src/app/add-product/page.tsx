@@ -17,8 +17,62 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { IoIosInformationCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
+import { useLanguageStore } from "~/APIs/store";
+import Step1 from "./steps/Step1";
+import Step2 from "./steps/Step2";
+import Step3 from "./steps/Step3";
+import Step4 from "./steps/Step4";
+import Step5 from "./steps/Step5";
+
+const translations = {
+  en: {
+    steps: [
+      "Product Information",
+      "Product Detail Information",
+      "Product Variant Creation",
+      "Logistics and Shipment",
+      "Bulk Purchase Discounts",
+    ],
+    cancel: "Cancel",
+    saveDraft: "Save As a Draft",
+    continue: "Continue",
+    publish: "Publish",
+    productPublished: "Product Published",
+  },
+  ar: {
+    steps: [
+      "معلومات المنتج",
+      "تفاصيل المنتج",
+      "إنشاء خيارات المنتج",
+      "الشحن والخدمات اللوجستية",
+      "خصومات الشراء بالجملة",
+    ],
+    cancel: "إلغاء",
+    saveDraft: "حفظ كمسودة",
+    continue: "متابعة",
+    publish: "نشر",
+    productPublished: "تم نشر المنتج",
+  },
+  fr: {
+    steps: [
+      "Informations sur le produit",
+      "Détails du produit",
+      "Création de variantes de produit",
+      "Logistique et expédition",
+      "Réductions pour achats en gros",
+    ],
+    cancel: "Annuler",
+    saveDraft: "Enregistrer comme brouillon",
+    continue: "Continuer",
+    publish: "Publier",
+    productPublished: "Produit publié",
+  },
+};
 
 const AddProduct = () => {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language];
+
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -54,46 +108,47 @@ const AddProduct = () => {
         >
           <div className="flex w-full max-w-5xl flex-col items-center md:p-8">
             <div className="my-4 flex w-full justify-center gap-4 sm:gap-8">
-              {[
-                { step: 1, label: "Product Information" },
-                { step: 2, label: "Product Detail Information" },
-                { step: 3, label: "Product Variant Creation" },
-                { step: 4, label: "Logistics and Shipment" },
-                { step: 5, label: "Bulk Purchase Discounts" },
-              ].map(({ step, label }) => (
-                <div key={step} className="flex flex-col items-center">
-                  <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full border-2 ${
-                      currentStep > step
-                        ? "border-primary bg-primary font-semibold text-white md:border-primary2 md:bg-primary2"
-                        : currentStep == step
-                          ? "border-primaryHover bg-primaryHover font-semibold text-white md:border-primary2Hover md:bg-primary2Hover"
-                          : "border-primary font-semibold text-primary md:border-primary2 md:text-primary2"
-                    }`}
-                  >
-                    {currentStep > step ? <FaCheck size={20} /> : step}
+              {t.steps.map((label, stepIndex) => {
+                const step = stepIndex + 1;
+                return (
+                  <div key={step} className="flex flex-col items-center">
+                    <div
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border-2 ${
+                        currentStep > step
+                          ? "border-primary bg-primary font-semibold text-white md:border-primary2 md:bg-primary2"
+                          : currentStep === step
+                            ? "border-primaryHover bg-primaryHover font-semibold text-white md:border-primary2Hover md:bg-primary2Hover"
+                            : "border-primary font-semibold text-primary md:border-primary2 md:text-primary2"
+                      }`}
+                    >
+                      {currentStep > step ? <FaCheck size={20} /> : step}
+                    </div>
+                    <Text
+                      font="bold"
+                      className="mt-1 text-center text-xs md:text-sm"
+                      color={"gray"}
+                    >
+                      {label}
+                    </Text>
                   </div>
-
-                  <Text
-                    font="bold"
-                    className="mt-1 text-center text-xs md:text-sm"
-                    color={"gray"}
-                  >
-                    {label}
-                  </Text>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <Box padding="0" border="none" shadow="none" className="md:p-4 mt-4 w-full">
-              {currentStep === 1 && <StepOne />}
-              {currentStep === 2 && <StepTwo previousStep={previousStep} />}
-              {currentStep === 3 && <StepThree previousStep={previousStep} />}
-              {currentStep === 4 && <StepFour previousStep={previousStep} />}
-              {currentStep === 5 && <StepFive previousStep={previousStep} />}
+            <Box
+              padding="0"
+              border="none"
+              shadow="none"
+              className="mt-4 w-full md:p-4"
+            >
+              {currentStep === 1 && <Step1 />}
+              {currentStep === 2 && <Step2 previousStep={previousStep} />}
+              {currentStep === 3 && <Step3 previousStep={previousStep} />}
+              {currentStep === 4 && <Step4 previousStep={previousStep} />}
+              {currentStep === 5 && <Step5 previousStep={previousStep} />}
             </Box>
 
-            <div className="mt-4 flex w-full flex-col-reverse justify-between gap-4 md:p-4 md:flex-row">
+            <div className="mt-4 flex w-full flex-col-reverse justify-between gap-4 md:flex-row md:p-4">
               <div className="hidden w-full md:block md:w-40">
                 <Button
                   color="primary2"
@@ -102,7 +157,7 @@ const AddProduct = () => {
                   className="cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary"
                 >
                   <RiDeleteBinLine size={20} />
-                  Cancel
+                  {t.cancel}
                 </Button>
               </div>
               <div className="block w-full md:hidden md:w-40">
@@ -112,7 +167,7 @@ const AddProduct = () => {
                   onClick={cancel}
                   className="cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary hover:bg-bgSecondary"
                 >
-                  Cancel
+                  {t.cancel}
                 </Button>
               </div>
               <div className="flex w-full gap-4 md:w-[336px]">
@@ -122,24 +177,19 @@ const AddProduct = () => {
                   className="hidden cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary md:flex"
                 >
                   <BsFileEarmarkText size={20} />
-                  Save As a draft
+                  {t.saveDraft}
                 </Button>
                 {currentStep === 5 ? (
                   <div className="w-full">
                     <div className="hidden md:block">
-                      <Button
-                        onClick={openModal}
-                        color="primary2"
-                      >
-                        Publish
+                      <Button onClick={openModal} color="primary2">
+                        {t.publish}
                         <FaRegCircleCheck size={25} />
                       </Button>
                     </div>
                     <div className="block md:hidden">
-                      <Button
-                        onClick={openModal}
-                      >
-                        Publish
+                      <Button onClick={openModal}>
+                        {t.publish}
                         <FaRegCircleCheck size={25} />
                       </Button>
                     </div>
@@ -152,15 +202,12 @@ const AddProduct = () => {
                         color="primary2"
                         disabled={currentStep === 5}
                       >
-                        Continue
+                        {t.continue}
                       </Button>
                     </div>
                     <div className="block md:hidden">
-                      <Button
-                        onClick={nextStep}
-                        disabled={currentStep === 5}
-                      >
-                        Continue
+                      <Button onClick={nextStep} disabled={currentStep === 5}>
+                        {t.continue}
                       </Button>
                     </div>
                   </div>
@@ -180,7 +227,7 @@ const AddProduct = () => {
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
           >
             <div className="w-fit">
-              <img src="/images/box-tick.png" alt="Product Published" />
+              <img src="/images/box-tick.png" alt={t.productPublished} />
             </div>
             <Text
               color={"primary2"}
@@ -188,445 +235,12 @@ const AddProduct = () => {
               size={"2xl"}
               className="mt-4"
             >
-              Product Published
+              {t.productPublished}
             </Text>
           </div>
         </div>
       )}
     </>
-  );
-};
-
-const StepOne = () => {
-  const [fileName, setFileName] = useState<string | null>(null);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFileName(file.name);
-    }
-  };
-
-  return (
-    <div>
-      <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
-        Product Information
-      </Text>
-      <form className="mt-4 flex flex-col gap-4">
-        <Input
-          label="Product Name"
-          border="gray"
-          type="text"
-          placeholder="Enter the product name"
-          theme="transparent"
-        />
-        <Input
-          label="Product Short Description"
-          border="gray"
-          type="text"
-          placeholder="Enter product short description"
-          theme="transparent"
-        />
-
-        <Input
-          label="Product Images"
-          id="product-image"
-          name="product-image"
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleFileChange}
-        />
-        <div
-          onClick={() => document.getElementById("product-image")?.click()}
-          className="flex h-32 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-borderPrimary text-textSecondary"
-        >
-          <div className="flex flex-col items-center">
-            <TbPhotoPlus size={50} />
-            {fileName ? (
-              <p className="mt-2 text-textPrimary">{fileName}</p>
-            ) : (
-              <p className="mt-2 text-textSecondary">Browse or Desktop</p>
-            )}
-          </div>
-        </div>
-
-        <Input
-          label="Product Description"
-          border="gray"
-          type="text"
-          placeholder="A detailed description of the product helps customers to learn more about the product."
-          theme="transparent"
-          className="pb-14"
-        />
-        <div className="flex items-center justify-start gap-4">
-          <div className="flex flex-col">
-            <label className="font-semibold" htmlFor="currency">
-              Product Price Currency
-            </label>
-            <select
-              name="currency"
-              id="currency"
-              className="mt-1 block w-48 rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-            >
-              <option value="unselected">Unselected</option>
-              <option value="$">$</option>
-              <option value="PE">PE</option>
-            </select>
-          </div>
-
-          <div className="w-80">
-            <Input
-              label="Product Price"
-              type="number"
-              theme="transparent"
-              className="w-full"
-              border="gray"
-            />
-          </div>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-const StepTwo = ({ previousStep }: { previousStep: () => void }) => {
-  return (
-    <div>
-      <div className="mb-4 flex cursor-pointer gap-2" onClick={previousStep}>
-        <IoArrowBackCircleOutline size={25} className="text-textSecondary" />
-        <Text font={"bold"} size={"xl"} color={"gray"}>
-          Back
-        </Text>
-      </div>
-      <div>
-        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
-          Product Detail Information
-        </Text>
-        <form className="mt-4 flex flex-col gap-4">
-          <div>
-            <label className="font-semibold" htmlFor="currency">
-              Product Category
-            </label>
-            <select
-              name="currency"
-              id="currency"
-              className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-            >
-              <option value="unselected">Category Name</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </div>
-          <div>
-            <label className="font-semibold" htmlFor="currency">
-              SubCategory
-            </label>
-            <select
-              name="SubCategory"
-              id="SubCategory"
-              className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-            >
-              <option value="unselected">Category Name</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </div>
-
-          <Text size={"2xl"} font={"bold"}>
-            Product Specification
-          </Text>
-          <div className="grid w-full grid-cols-1 gap-4 md:w-3/4 md:grid-cols-2">
-            <div>
-              <label htmlFor="SubCategory1">Material</label>
-              <select
-                name="SubCategory1"
-                id="SubCategory1"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory2">Weight</label>
-              <select
-                name="SubCategory2"
-                id="SubCategory2"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory3">Production Technique</label>
-              <select
-                name="SubCategory3"
-                id="SubCategory3"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory4">Absorbency</label>
-              <select
-                name="SubCategory4"
-                id="SubCategory4"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-          </div>
-          <Text size={"2xl"} font={"bold"}>
-            Product Tags
-          </Text>
-          <Text color={"limeGreen"} font={"bold"}>
-            Recommended Tags
-          </Text>
-          <div>
-            <div className="flex flex-wrap gap-4">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex h-10 w-24 md:h-12 md:w-28 items-center justify-evenly rounded-full border border-primary text-primary md:border-primary2 md:text-primary2"
-                >
-                  <Text
-                    className="text-primary md:text-primary2"
-                    font={"semiBold"}
-                  >
-                    Tag {index + 1}
-                  </Text>
-                  {index % 2 === 0 ? (
-                    <FaRegCircleCheck size={25} />
-                  ) : (
-                    <MdOutlineAddCircleOutline size={25} />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-const StepThree = ({ previousStep }: { previousStep: () => void }) => {
-  return (
-    <div>
-      <div className="mb-4 flex cursor-pointer gap-2" onClick={previousStep}>
-        <IoArrowBackCircleOutline size={25} className="text-textSecondary" />
-        <Text font={"bold"} size={"xl"} color={"gray"}>
-          Back
-        </Text>
-      </div>
-      <div>
-        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
-          Product Variant Creation
-        </Text>
-        <form className="mt-4 flex flex-col gap-4">
-          <Text size={"xl"} font={"bold"}>
-            Product Attributes
-          </Text>
-          <div className="grid w-full grid-cols-1 gap-4 md:w-3/4 md:grid-cols-2">
-            <div>
-              <label htmlFor="SubCategory1">Color</label>
-              <select
-                name="SubCategory1"
-                id="SubCategory1"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory2">Style</label>
-              <select
-                name="SubCategory2"
-                id="SubCategory2"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory3">Size</label>
-              <select
-                name="SubCategory3"
-                id="SubCategory3"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="SubCategory4">Edge Design</label>
-              <select
-                name="SubCategory4"
-                id="SubCategory4"
-                className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none"
-              >
-                <option value="unselected">Test</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-const StepFour = ({ previousStep }: { previousStep: () => void }) => {
-  return (
-    <div>
-      <div className="mb-4 flex cursor-pointer gap-2" onClick={previousStep}>
-        <IoArrowBackCircleOutline size={25} className="text-textSecondary" />
-        <Text font={"bold"} size={"xl"} color={"gray"}>
-          Back
-        </Text>
-      </div>
-      <div>
-        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
-          Logistics and Shipment Information
-        </Text>
-        <form className="mt-4 flex flex-col gap-4">
-          <div>
-            <label className="font-semibold" htmlFor="currency">
-              Container Type
-            </label>
-            <select
-              name="currency"
-              id="currency"
-              className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none md:w-3/4"
-            >
-              <option value="unselected">Test</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </div>
-          <div className="w-full md:w-80">
-            <Input
-              label="Quantity in Container"
-              type="number"
-              theme="transparent"
-              className="w-full"
-              border="gray"
-            />
-          </div>
-          <div>
-            <label className="font-semibold" htmlFor="currency">
-              Product Dimensions (H x W x D)
-            </label>
-            <select
-              name="currency"
-              id="currency"
-              className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none md:w-1/2"
-            >
-              <option value="unselected">Category Name</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </div>
-          <div className="w-full md:w-80">
-            <Input
-              label="Product Weight"
-              type="number"
-              theme="transparent"
-              className="w-full"
-              border="gray"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-const StepFive = ({ previousStep }: { previousStep: () => void }) => {
-  return (
-    <div>
-      <div className="mb-4 flex cursor-pointer gap-2" onClick={previousStep}>
-        <IoArrowBackCircleOutline size={25} className="text-textSecondary" />
-        <Text font={"bold"} size={"xl"} color={"gray"}>
-          Back
-        </Text>
-      </div>
-      <div>
-        <Text className="md:text-primary2 text-xl md:text-2xl" font={"bold"}>
-          Bulk Purchase Discounts
-        </Text>
-        <form className="mt-4 flex flex-col gap-4">
-          <div className="flex items-center gap-2 p-4 md:bg-bgSecondary">
-            <div>
-              <Text color={"gray"} font={"bold"} className="md:text-xl mb-8">
-                Specify product quantity range and discount rate for discounts
-              </Text>
-              <div className="my-8">
-                <label className="font-semibold" htmlFor="currency">
-                  Product Quantity
-                </label>
-                <select
-                  name="currency"
-                  id="currency"
-                  className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none md:w-1/2"
-                >
-                  <option value="unselected">Test</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-                <div className="flex items-center gap-1">
-                  <IoIosInformationCircle size={20} className="text-primary2" />
-                  <Text color={"primary2"} className="text-sm md:text-lg lg:text-xl">
-                    How many product purchases do you want to determine the
-                    product discount?
-                  </Text>
-                </div>
-              </div>
-              <div>
-                <label className="font-semibold" htmlFor="currency">
-                  Discount
-                </label>
-                <select
-                  name="currency"
-                  id="currency"
-                  className="mt-1 block w-full rounded-lg border-2 border-borderPrimary bg-bgPrimary p-4 text-sm text-textPrimary focus:outline-none md:w-1/6"
-                >
-                  <option value="unselected">Test</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-                <div className="flex items-center gap-1">
-                  <IoIosInformationCircle size={20} className="text-primary2" />
-                  <Text color={"primary2"} className="text-sm md:text-lg lg:text-xl">
-                    What percentage discount do you want to set?
-                  </Text>
-                </div>
-              </div>
-            </div>
-            <div className="hidden lg:block">
-              <img src="/images/Discount.png" alt="" />
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
   );
 };
 

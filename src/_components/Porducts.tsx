@@ -1,9 +1,37 @@
+import { useLanguageStore } from "~/APIs/store";
 import Button from "./Button";
 import { Text } from "./Text";
-import { FaStar, FaPlus } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa6";
+const translations = {
+  en: {
+    category: "CATEGORY",
+    reviews: "Reviews",
+    buyNow: "Buy Now",
+    addToCart: "Add To Cart",
+    noItems: "No items in the cart.",
+  },
+  ar: {
+    category: "الفئة",
+    reviews: "التقييمات",
+    buyNow: "اشتري الآن",
+    addToCart: "أضف إلى السلة",
+    noItems: "لا توجد عناصر في السلة.",
+  },
+  fr: {
+    category: "CATÉGORIE",
+    reviews: "Avis",
+    buyNow: "Acheter maintenant",
+    addToCart: "Ajouter au panier",
+    noItems: "Aucun article dans le panier.",
+  },
+};
+
 
 /* eslint-disable @next/next/no-img-element */
 const Products = ({ products }: { products?: any }) => {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language] || translations.en;
+
   return (
     <>
       <div className="grid grid-cols-1 gap-4 p-4 xl:grid-cols-2">
@@ -23,7 +51,7 @@ const Products = ({ products }: { products?: any }) => {
 
               <div className="p-4">
                 <Text font={"semiBold"} size={"lg"} color={"gray"}>
-                  CATEGORY
+                  {t.category}
                 </Text>
                 <Text font={"bold"} size={"2xl"} className="mt-2">
                   {product.name}
@@ -50,19 +78,19 @@ const Products = ({ products }: { products?: any }) => {
                   <div className="flex items-center gap-2">
                     <FaStar color="yellow" className="text-xl" />
                     <Text font={"medium"} size={"md"} color={"gray"}>
-                      ({product.reviews} Reviews)
+                      ({product.reviews} {t.reviews})
                     </Text>
                   </div>
                 </div>
                 <div className="my-4 flex flex-col gap-4 sm:flex-row sm:justify-between">
                   <div className="flex justify-center">
                     <Button color="primary" className="w-full sm:w-auto">
-                      Buy Now
+                      {t.buyNow}
                     </Button>
                   </div>
                   <div className="flex justify-center">
                     <Button theme="outline" className="w-full sm:w-auto">
-                      Add To Cart
+                      {t.addToCart}
                     </Button>
                   </div>
                 </div>
@@ -70,7 +98,7 @@ const Products = ({ products }: { products?: any }) => {
             </div>
           ))
         ) : (
-          <div className="col-span-3 text-center">No items in the cart.</div>
+          <div className="col-span-3 text-center">{t.noItems}</div>
         )}
       </div>
     </>

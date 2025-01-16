@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useState } from "react";
@@ -8,7 +9,6 @@ import Spinner from "./Spinner";
 import { Switch } from "~/components/ui/switch";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Cookie from "js-cookie";
-import { useBooleanValue, useUserDataStore } from "~/APIs/store";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { RiBook3Fill } from "react-icons/ri";
@@ -19,31 +19,25 @@ import { FaBuildingColumns } from "react-icons/fa6";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { Text } from "./Text";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
+import LanguageSwitcher from "./LanguagesSwitcher";
 
-const useWindowDimensions = () => {
-  const isClient = typeof window === "object";
-  const [windowSize, setWindowSize] = useState(
-    isClient
-      ? { width: window.innerWidth, height: window.innerHeight }
-      : { width: undefined, height: undefined },
-  );
-
-  useEffect(() => {
-    if (!isClient) {
-      return;
-    }
-
-    const handleResize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isClient]);
-
-  return windowSize;
+const translations = {
+  en: {
+    name: "Alex Rawles",
+    role: "Leaner",
+    searchPlaceholder: "Search for Market",
+  },
+  ar: {
+    name: "أليكس رولز",
+    role: "متعلم",
+    searchPlaceholder: "ابحث عن السوق",
+  },
+  fr: {
+    name: "Alex Rawles",
+    role: "Apprenant",
+    searchPlaceholder: "Rechercher sur le marché",
+  },
 };
 
 interface NavBarLinkProps {
@@ -54,6 +48,7 @@ interface NavBarLinkProps {
 }
 
 const NavBarLink = ({ href, icon: Icon, label, url }: NavBarLinkProps) => {
+
   const isActive = url === href;
   return (
     <li className="mt-4">
@@ -79,18 +74,50 @@ const NavBarLink = ({ href, icon: Icon, label, url }: NavBarLinkProps) => {
   );
 };
 
-const NavBar = () => {
-  const [search, setSearch] = useState("");
+type NavKey = (typeof navLinks)[number]["key"];
+type LocalizedLabels = Record<"en" | "ar" | "fr", Record<NavKey, string>>;
 
-  const [profile, setProfile] = useState(false);
-  const toggleProfile = () => {
-    setProfile(!profile);
-  };
-  const [isClient, setIsClient] = useState(false);
-  const userData = useUserDataStore.getState().userData;
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+const navLinks = [
+  { href: "/", icon: IoShareSocialSharp, key: "social" },
+  { href: "/organization", icon: FaBuildingColumns, key: "organization" },
+  { href: "/education", icon: RiBook3Fill, key: "education" },
+  { href: "/market", icon: FaBagShopping, key: "market" },
+  { href: "/communication", icon: FaUsers, key: "communication" },
+  { href: "/meeting", icon: FaVideo, key: "meeting" },
+];
+
+const localizedLabels: LocalizedLabels = {
+  en: {
+    social: "Social",
+    organization: "Organization",
+    education: "Education",
+    market: "Market",
+    communication: "Communication",
+    meeting: "Meeting",
+  },
+  ar: {
+    social: "اجتماعي",
+    organization: "منظمة",
+    education: "تعليم",
+    market: "سوق",
+    communication: "اتصال",
+    meeting: "اجتماع",
+  },
+  fr: {
+    social: "Social",
+    organization: "Organisation",
+    education: "Éducation",
+    market: "Marché",
+    communication: "Communication",
+    meeting: "Réunion",
+  },
+};
+
+const NavBar = () => {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language] || translations.en;
+
+  const [search, setSearch] = useState("");
   const { theme, setTheme } = useTheme();
   const url = usePathname();
 
@@ -98,30 +125,24 @@ const NavBar = () => {
     setTheme(value ? "dark" : "light");
   };
 
-  const DeleteCookie = () => {
-    Cookie.remove("token");
-    useUserDataStore.getState().clearUserData();
+  const getLocalizedLabel = (key: string) => {
+    return localizedLabels[language]?.[key] || key;
   };
 
-  const navLinks = [
-    { href: "/", icon: IoShareSocialSharp, label: "Social" },
-    { href: "/organization", icon: FaBuildingColumns, label: "Organization" },
-    { href: "/education", icon: RiBook3Fill, label: "Education" },
-    { href: "/market", icon: FaBagShopping, label: "Market" },
-    { href: "/communication", icon: FaUsers, label: "Communication" },
-    { href: "/meeting", icon: FaVideo, label: "Meeting" },
-  ];
+  useInitializeLanguage(); // Ensure language state is initialized
+  const isLoading = useLanguageStore((state) => state.isLoading); // Check if language is loading
 
-  if (!isClient)
+  if (isLoading) {
     return (
-      <div className="absolute left-0 top-0 z-[9999] flex h-screen w-full items-center justify-center bg-bgPrimary">
+      <div className="flex h-screen items-center justify-center">
         <Spinner />
       </div>
     );
+  }
 
   return (
     <>
-      <header>
+      <header dir={language === "ar" ? "rtl" : "ltr"}>
         <div>
           <header
             className={`sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap bg-bgPrimary py-2.5 text-sm sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64`}
@@ -161,7 +182,7 @@ const NavBar = () => {
                         id="icon"
                         name="icon"
                         className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                        placeholder="Search"
+                        placeholder={t.searchPlaceholder}
                       />
                     </div>
                   </div>
@@ -184,12 +205,11 @@ const NavBar = () => {
                   >
                     <IoMdNotifications size={25} />
                   </Link>
-
+                  <LanguageSwitcher />
                   <div className="hs-dropdown relative flex items-center justify-center rounded-full border border-borderPrimary p-2 [--placement:bottom-right] hover:bg-bgSecondary">
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <button
-                          onClick={toggleProfile}
                           id="hs-dropdown-with-header"
                           type="button"
                           className="flex items-center justify-center gap-x-2 rounded-full text-sm font-semibold outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -201,67 +221,13 @@ const NavBar = () => {
                               alt="User Avatar"
                             />
                             <div className="flex flex-col">
-                              <Text>Alex Rawles</Text>
-                              <Text color={"gray"}>(Leaner)</Text>
+                              <Text>{t.name}</Text>
+                              <Text color={"gray"}>({t.role})</Text>
                             </div>
                             <IoIosArrowDropdownCircle size={25} />
                           </div>
                         </button>
                       </DropdownMenu.Trigger>
-
-                      {profile && (
-                        <DropdownMenu.Content
-                          className={`fixed right-[20px] top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md`}
-                          aria-labelledby="hs-dropdown-with-header"
-                          align="end"
-                          sideOffset={5}
-                        >
-                          <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
-                            <p className="text-sm text-textPrimary">
-                              Signed in as
-                            </p>
-                            <p className="text-sm font-medium text-textPrimary">
-                              {userData?.email}
-                            </p>
-                          </div>
-                          <div className="mt-2 py-2">
-                            <DropdownMenu.Item asChild>
-                              <Link
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none"
-                                href="/profile"
-                              >
-                                <svg
-                                  className="h-4 w-4 flex-shrink-0"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                  <circle cx="9" cy="7" r="4" />
-                                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                                Profile
-                              </Link>
-                            </DropdownMenu.Item>
-                            <DropdownMenu.Item asChild>
-                              <a
-                                onClick={() => DeleteCookie()}
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none"
-                                href="/login"
-                              >
-                                Sign out
-                              </a>
-                            </DropdownMenu.Item>
-                          </div>
-                        </DropdownMenu.Content>
-                      )}
                     </DropdownMenu.Root>
                   </div>
                 </div>
@@ -269,17 +235,12 @@ const NavBar = () => {
             </nav>
           </header>
           <div
-            dir={"ltr"}
+            dir={language === "ar" ? "rtl" : "ltr"}
             id="application-sidebar"
             className={`hs-overlay hs-overlay-open:translate-x-0 fixed inset-y-0 start-0 z-[60] w-[120px] transform overflow-y-auto bg-bgPrimary drop-shadow-2xl transition-all duration-300 ease-in [--auto-close:lg] lg:bottom-0 lg:end-auto lg:block lg:w-[150px] lg:translate-x-0 lg:drop-shadow-none`}
           >
             <div className="px-8 pt-4">
               <Link href="/">
-                {/* <img
-                      className="mt-5 scale-[2]"
-                      src="/images/opreamIcon.png"
-                      alt="Logo"
-                    /> */}
                 <img
                   className="-translate-7 w-[150px] translate-y-3"
                   src="/images/opreamIcon.png"
@@ -292,12 +253,12 @@ const NavBar = () => {
               data-hs-accordion-always-open
             >
               <ul className="space-y-1.5">
-                {navLinks.map((link) => (
+                {navLinks.map(({ href, icon, key }) => (
                   <NavBarLink
-                    key={link.href}
-                    href={link.href}
-                    icon={link.icon}
-                    label={link.label}
+                    key={href}
+                    href={href}
+                    icon={icon}
+                    label={getLocalizedLabel(key)}
                     url={url}
                   />
                 ))}

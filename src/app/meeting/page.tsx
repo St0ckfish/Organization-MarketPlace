@@ -29,8 +29,56 @@ import { ImPhoneHangUp } from "react-icons/im";
 import { FaUsers } from "react-icons/fa";
 import { BiSolidMessageDetail } from "react-icons/bi";
 import { FaArrowUp } from "react-icons/fa6";
+import { useLanguageStore } from "~/APIs/store";
 
+const translations = {
+  en: {
+    title: "OPream Meeting",
+    date: "June 12th, 2024 | 11:00 AM",
+    participants: "Participants",
+    addParticipant: "Add Participant",
+    groups: "Groups",
+    personal: "Personal",
+    chats: "Chats",
+    typeMessage: "Type your message",
+    chatMessage: "Good afternoon, everyone. This is an example of a chat message that can vary in length depending on the content.",
+    personalChatMessage: "Good afternoon, everyone. This is an example of a chat message in personal that can vary in length depending on the content.",
+    userName: "Kathryn Murphy",
+    time: "{t.time}",
+  },
+  ar: {
+    title: "اجتماع OPream",
+    date: "12 يونيو 2024 | 11:00 صباحًا",
+    participants: "المشاركون",
+    addParticipant: "إضافة مشارك",
+    groups: "المجموعات",
+    personal: "شخصي",
+    chats: "الدردشات",
+    typeMessage: "اكتب رسالتك",
+    chatMessage: "مرحباً جميعاً. هذه رسالة دردشة كمثال يمكن أن تختلف في الطول حسب المحتوى.",
+    personalChatMessage: "مرحباً جميعاً. هذه رسالة دردشة شخصية كمثال يمكن أن تختلف في الطول حسب المحتوى.",
+    userName: "كاثرين ميرفي",
+    time: "11:02 صباحاً",
+  },
+  fr: {
+    title: "Réunion OPream",
+    date: "12 juin 2024 | 11h00",
+    participants: "Participants",
+    addParticipant: "Ajouter un participant",
+    groups: "Groupes",
+    personal: "Personnel",
+    chats: "Discussions",
+    typeMessage: "Tapez votre message",
+    chatMessage: "Bonjour à tous. Ceci est un exemple de message de discussion qui peut varier en longueur selon le contenu.",
+    personalChatMessage: "Bonjour à tous. Ceci est un exemple de message de discussion personnelle qui peut varier en longueur selon le contenu.",
+    userName: "Kathryn Murphy",
+    time: "11:02",
+  },
+};
 function Meeting() {
+  const language = useLanguageStore((state) => state.language);
+  const t = translations[language] || translations.en;
+
   const photos = [
     "images/Ellipse 7.png",
     "images/Ellipse 8.png",
@@ -101,20 +149,20 @@ function Meeting() {
               <div className="hidden items-center justify-between md:flex">
                 <div className="p-2">
                   <Text font={"bold"} className="text-xl xl:text-2xl">
-                    OPream Meeting
+                    {t.title}
                   </Text>
                   <Text color={"gray"} className="xl:text-md text-sm">
-                    June 12th, 2024 | 11:00 AM
+                    {t.date}
                   </Text>
                 </div>
 
                 {/* Photos Section */}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2" dir="ltr">
                   <div className="flex flex-wrap items-center -space-x-4">
                     {photos.slice(0, 4).map((photo, index) => (
                       <div
                         key={index}
-                        className="relative h-[40px] w-[40px] overflow-hidden rounded-full border-2 border-white xl:h-[50px] xl:w-[50px]"
+                        className="relative h-[40px] w-[40px] overflow-hidden rounded-full border-2 border-bgPrimary xl:h-[50px] xl:w-[50px]"
                       >
                         <img
                           src={photo}
@@ -180,7 +228,7 @@ function Meeting() {
                         font={"semiBold"}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-white"
                       >
-                        Adam Joseph
+                        {t.userName}
                       </Text>
                     </div>
                     <CiMicrophoneOff
@@ -219,7 +267,7 @@ function Meeting() {
                           font={"semiBold"}
                           className="absolute bottom-4 left-16 -translate-x-1/2 transform rounded-lg bg-black/50 px-3 py-1 text-xs text-white md:text-sm"
                         >
-                          Adam Joseph
+                          {t.userName}
                         </Text>
                       </div>
                     ))}
@@ -231,7 +279,7 @@ function Meeting() {
                   <div className="flex items-center justify-between">
                     <div className="p-2">
                       <Text font={"bold"} className="text-md xl:text-xl">
-                        Participants
+                        {t.participants}
                       </Text>
                     </div>
 
@@ -240,7 +288,7 @@ function Meeting() {
                         color={"primary"}
                         className="xl:text-md text-xs font-bold"
                       >
-                        Add Participant
+                        {t.addParticipant}
                       </Text>
                       <RiUserForbidLine className="text-xl text-primary xl:text-2xl" />
                     </div>
@@ -577,7 +625,7 @@ function Meeting() {
                 <div className="w-full">
                   <div className="mt-4 flex items-center justify-center gap-6 border-b border-borderPrimary pb-4">
                     <Text size={"2xl"} font={"bold"}>
-                      Chats
+                      {t.chats}
                     </Text>
                     <RadioGroup.Root
                       className="flex w-4/5 justify-end gap-8 p-2 lg:w-full xl:w-3/5"
@@ -595,7 +643,7 @@ function Meeting() {
                           id="groups-label"
                           className="text-md font-semibold group-data-[state=checked]:text-primary xl:text-xl"
                         >
-                          Groups
+                          {t.groups}
                         </span>
                       </RadioGroup.Item>
                       <RadioGroup.Item
@@ -608,7 +656,7 @@ function Meeting() {
                           id="personal-label"
                           className="text-md font-semibold group-data-[state=checked]:text-primary xl:text-xl"
                         >
-                          Personal
+                          {t.personal}
                         </span>
                       </RadioGroup.Item>
                     </RadioGroup.Root>
@@ -634,16 +682,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -661,16 +707,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -688,16 +732,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -715,16 +757,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -742,16 +782,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -769,16 +807,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -796,16 +832,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -823,16 +857,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -850,16 +882,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -877,16 +907,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -904,16 +932,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -931,16 +957,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message that can vary in length depending on
-                              the content.
+                              {t.chatMessage}
                             </Text>
                           </div>
                         </div>
@@ -961,16 +985,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -988,16 +1010,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1015,16 +1035,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1042,16 +1060,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1069,16 +1085,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1096,16 +1110,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1123,16 +1135,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1150,16 +1160,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1177,16 +1185,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1204,16 +1210,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1231,16 +1235,14 @@ function Meeting() {
                           <div className="flex w-full flex-col">
                             <div className="flex items-center justify-between">
                               <Text size={"sm"} font={"semiBold"}>
-                                Kathryn Murphy
+                                {t.userName}
                               </Text>
                               <Text size={"sm"} color={"gray"}>
-                                11:02 AM
+                                {t.time}
                               </Text>
                             </div>
                             <Text className="text-md break-words text-textSecondary xl:text-xl">
-                              Good afternoon, everyone. This is an example of a
-                              chat message in personal that can vary in length
-                              depending on the content.
+                              {t.personalChatMessage}
                             </Text>
                           </div>
                         </div>
@@ -1255,7 +1257,7 @@ function Meeting() {
                       <div className="flex gap-4">
                         <FiLink className="text-textSecondary" size={30} />
                       </div>
-                      <Input placeholder="Type your message" border="none" />
+                      <Input placeholder={t.typeMessage} border="none" />{" "}
                       <FiSend
                         className="rounded-full bg-primary p-2 text-white"
                         size={40}
@@ -1286,7 +1288,7 @@ function Meeting() {
                 <div className="flex items-center justify-between">
                   <div className="p-2">
                     <Text font={"bold"} className="text-md xl:text-xl">
-                      Participants
+                      {t.participants}
                     </Text>
                   </div>
 
@@ -1295,7 +1297,7 @@ function Meeting() {
                       color={"primary2"}
                       className="xl:text-md text-xs font-bold"
                     >
-                      Add Participant
+                      {t.addParticipant}
                     </Text>
                     <RiUserForbidLine className="text-xl text-primary2 xl:text-2xl" />
                   </div>
@@ -1478,7 +1480,7 @@ function Meeting() {
               <div className="w-1/2 lg:w-full">
                 <div className="mt-4 flex items-center justify-center gap-6 border-b border-borderPrimary pb-4">
                   <Text size={"2xl"} font={"bold"}>
-                    Chats
+                    {t.chats}
                   </Text>
                   <RadioGroup.Root
                     className="flex w-4/5 rounded-full bg-bgFourth p-2 lg:w-full xl:w-3/5"
@@ -1496,7 +1498,7 @@ function Meeting() {
                         id="groups-label"
                         className="text-md font-semibold group-data-[state=checked]:text-white xl:text-xl"
                       >
-                        Groups
+                        {t.groups}
                       </span>
                     </RadioGroup.Item>
                     <RadioGroup.Item
@@ -1509,7 +1511,7 @@ function Meeting() {
                         id="personal-label"
                         className="text-md font-semibold group-data-[state=checked]:text-white xl:text-xl"
                       >
-                        Personal
+                        {t.personal}
                       </span>
                     </RadioGroup.Item>
                   </RadioGroup.Root>
@@ -1531,19 +1533,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1561,19 +1561,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1591,19 +1589,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1621,19 +1617,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1651,19 +1645,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1681,19 +1673,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message that can vary in length depending on
-                            the content.
+                            {t.chatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1714,19 +1704,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1744,19 +1732,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1774,19 +1760,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1804,19 +1788,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1834,19 +1816,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1864,19 +1844,17 @@ function Meeting() {
                         <div className="flex w-full flex-col">
                           <div className="flex items-center justify-between">
                             <Text size={"sm"} color={"gray"}>
-                              Kathryn Murphy
+                              {t.userName}
                             </Text>
                             <Text size={"sm"} color={"gray"}>
-                              11:02 AM
+                              {t.time}
                             </Text>
                           </div>
                           <Text
                             font={"semiBold"}
                             className="text-md break-words xl:text-xl"
                           >
-                            Good afternoon, everyone. This is an example of a
-                            chat message in personal that can vary in length
-                            depending on the content.
+                            {t.personalChatMessage}
                           </Text>
                         </div>
                       </div>
@@ -1891,7 +1869,7 @@ function Meeting() {
                     <div className="flex gap-4">
                       <FiLink className="text-textSecondary" size={30} />
                     </div>
-                    <Input placeholder="Type your message" border="none" />
+                    <Input placeholder={t.typeMessage} border="none" />{" "}
                     <FiSend
                       className="rounded-full bg-primary2 p-2 text-white"
                       size={40}
