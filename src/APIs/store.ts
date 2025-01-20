@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useEffect } from "react";
 
-export type Language = "en" | "ar" | "fr";
+export type Language = "en" | "ar" | "fr" | "ru";
 
 type LanguageState = {
   language: Language; // Current language state
@@ -12,7 +12,7 @@ type LanguageState = {
 
 // Zustand store
 export const useLanguageStore = create<LanguageState>((set) => ({
-  language: "en", // Default value for SSR
+  language: "en", // Default to "en" during SSR
   isLoading: true, // Initially loading
   setLanguage: (lang) => {
     set(() => ({ language: lang }));
@@ -31,10 +31,15 @@ export const useInitializeLanguage = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedLanguage = localStorage.getItem("language");
-      if (savedLanguage === "en" || savedLanguage === "ar" || savedLanguage === "fr") {
+      if (
+        savedLanguage === "en" ||
+        savedLanguage === "ar" ||
+        savedLanguage === "fr" ||
+        savedLanguage === "ru"
+      ) {
         setLanguage(savedLanguage as Language);
       }
     }
-    setIsLoading(false); // Set loading to false after initialization
+    setIsLoading(false); // Mark loading as complete
   }, [setLanguage, setIsLoading]);
 };

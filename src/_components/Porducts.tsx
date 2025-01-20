@@ -2,6 +2,7 @@ import { useLanguageStore } from "~/APIs/store";
 import Button from "./Button";
 import { Text } from "./Text";
 import { FaStar } from "react-icons/fa6";
+
 const translations = {
   en: {
     category: "CATEGORY",
@@ -24,8 +25,14 @@ const translations = {
     addToCart: "Ajouter au panier",
     noItems: "Aucun article dans le panier.",
   },
+  ru: {
+    category: "КАТЕГОРИЯ",
+    reviews: "Отзывы",
+    buyNow: "Купить сейчас",
+    addToCart: "Добавить в корзину",
+    noItems: "Нет товаров в корзине.",
+  },
 };
-
 
 /* eslint-disable @next/next/no-img-element */
 const Products = ({ products }: { products?: any }) => {

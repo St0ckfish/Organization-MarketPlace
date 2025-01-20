@@ -20,7 +20,7 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import { Text } from "./Text";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
-import LanguageSwitcher from "./LanguagesSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const translations = {
   en: {
@@ -38,6 +38,11 @@ const translations = {
     role: "Apprenant",
     searchPlaceholder: "Rechercher sur le marché",
   },
+  ru: {
+    name: "Алекс Роулз",
+    role: "Ученик",
+    searchPlaceholder: "Поиск по рынку",
+  },
 };
 
 interface NavBarLinkProps {
@@ -48,7 +53,6 @@ interface NavBarLinkProps {
 }
 
 const NavBarLink = ({ href, icon: Icon, label, url }: NavBarLinkProps) => {
-
   const isActive = url === href;
   return (
     <li className="mt-4">
@@ -75,7 +79,10 @@ const NavBarLink = ({ href, icon: Icon, label, url }: NavBarLinkProps) => {
 };
 
 type NavKey = (typeof navLinks)[number]["key"];
-type LocalizedLabels = Record<"en" | "ar" | "fr", Record<NavKey, string>>;
+type LocalizedLabels = Record<
+  "en" | "ar" | "fr" | "ru",
+  Record<NavKey, string>
+>;
 
 const navLinks = [
   { href: "/", icon: IoShareSocialSharp, key: "social" },
@@ -110,6 +117,14 @@ const localizedLabels: LocalizedLabels = {
     market: "Marché",
     communication: "Communication",
     meeting: "Réunion",
+  },
+  ru: {
+    social: "Социальный",
+    organization: "Организация",
+    education: "Образование",
+    market: "Рынок",
+    communication: "Коммуникация",
+    meeting: "Встреча",
   },
 };
 

@@ -25,8 +25,8 @@ export default {
         primary: "rgba(var(--primary))",
         primary2: "rgba(var(--primary2))",
         navLinks: "rgba(var(--navLinks))",
-        primaryHover: "rgba(var(--primary-hover))", 
-        primary2Hover: "rgba(var(--primary2-hover))", 
+        primaryHover: "rgba(var(--primary-hover))",
+        primary2Hover: "rgba(var(--primary2-hover))",
         bgPrimary: "rgba(var(--bg-primary))",
         bgSecondary: "rgba(var(--bg-secondary))",
         bgThird: "rgba(var(--bg-third))",
@@ -95,7 +95,7 @@ export default {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('tailwind-scrollbar'),
-    require('tailwind-scrollbar-hide'),
+    require("tailwind-scrollbar"),
+    require("tailwind-scrollbar-hide"),
   ],
 } satisfies Config;

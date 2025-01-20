@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 
 interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
-  shadow?: "none" | "sm" | "md" | "lg" | "xl"; 
+  shadow?: "none" | "sm" | "md" | "lg" | "xl";
   border?: "none" | "borderPrimary" | "borderSecondary" | "borderGray";
   rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
   padding?: string;
@@ -24,7 +24,15 @@ interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @returns {React.ReactElement} A `div` element with the specified props.
  */
-const Box: React.FC<BoxProps> = ({ children, className = "", rounded = "xl", shadow = "sm", border = "none", padding = "4", ...props }) => {
+const Box: React.FC<BoxProps> = ({
+  children,
+  className = "",
+  rounded = "xl",
+  shadow = "sm",
+  border = "none",
+  padding = "4",
+  ...props
+}) => {
   return (
     <div
       className={`w-full rounded-${rounded} bg-bgPrimary p-${padding} shadow-${shadow} ${border !== "none" ? `border ${border}` : ""} ${className}`}
