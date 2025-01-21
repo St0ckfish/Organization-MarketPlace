@@ -4,18 +4,13 @@
 import { useState } from "react";
 import Box from "~/_components/Box";
 import Container from "~/_components/Container";
-import Input from "~/_components/Input";
 import { Text } from "~/_components/Text";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { TbPhotoPlus } from "react-icons/tb";
 import Button from "~/_components/Button";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { IoIosInformationCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
 import { useLanguageStore } from "~/APIs/store";
 import Step1 from "./steps/Step1";
@@ -23,51 +18,8 @@ import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
 import Step4 from "./steps/Step4";
 import Step5 from "./steps/Step5";
+import translations from "./translations";
 
-const translations = {
-  en: {
-    steps: [
-      "Product Information",
-      "Product Detail Information",
-      "Product Variant Creation",
-      "Logistics and Shipment",
-      "Bulk Purchase Discounts",
-    ],
-    cancel: "Cancel",
-    saveDraft: "Save As a Draft",
-    continue: "Continue",
-    publish: "Publish",
-    productPublished: "Product Published",
-  },
-  ar: {
-    steps: [
-      "معلومات المنتج",
-      "تفاصيل المنتج",
-      "إنشاء خيارات المنتج",
-      "الشحن والخدمات اللوجستية",
-      "خصومات الشراء بالجملة",
-    ],
-    cancel: "إلغاء",
-    saveDraft: "حفظ كمسودة",
-    continue: "متابعة",
-    publish: "نشر",
-    productPublished: "تم نشر المنتج",
-  },
-  fr: {
-    steps: [
-      "Informations sur le produit",
-      "Détails du produit",
-      "Création de variantes de produit",
-      "Logistique et expédition",
-      "Réductions pour achats en gros",
-    ],
-    cancel: "Annuler",
-    saveDraft: "Enregistrer comme brouillon",
-    continue: "Continuer",
-    publish: "Publier",
-    productPublished: "Produit publié",
-  },
-};
 
 const AddProduct = () => {
   const language = useLanguageStore((state) => state.language);

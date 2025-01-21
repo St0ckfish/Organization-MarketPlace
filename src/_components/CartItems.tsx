@@ -19,6 +19,11 @@ const translations = {
     reviews: "Avis",
     price: "Prix",
   },
+  ru: {
+    noItems: "Нет товаров в корзине.",
+    reviews: "Отзывы",
+    price: "Цена",
+  },
 };
 
 /* eslint-disable @next/next/no-img-element */
@@ -28,7 +33,7 @@ const CartItems = ({ cartItems }: { cartItems?: any }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4 md:p-0">
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:p-0 lg:grid-cols-3">
         {cartItems?.length > 0 ? (
           cartItems.map((item: any) => (
             <div

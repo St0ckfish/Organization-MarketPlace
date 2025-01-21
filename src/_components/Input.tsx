@@ -12,7 +12,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   dir?: string;
   theme?: "solid" | "transparent" | "gray";
   border?: "primary" | "gray" | "none";
-  rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full"; 
+  rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
 }
 
 const Input: React.FC<InputProps> = ({
@@ -37,19 +37,25 @@ const Input: React.FC<InputProps> = ({
     theme === "transparent"
       ? "bg-transparent"
       : theme === "gray"
-      ? "bg-bgInput rounded-xl"
-      : "bg-bgSecondary";
+        ? "bg-bgInput rounded-xl"
+        : "bg-bgSecondary";
 
   const borderClass =
-      border === "none" ? "" : 
-      type === "comment" ? "rounded-2xl" : 
-      border === "gray" ? "border border-borderPrimary" : "border border-borderSecondary";
-  
-  const roundedClass = `rounded-${rounded}`; 
+    border === "none"
+      ? ""
+      : type === "comment"
+        ? "rounded-2xl"
+        : border === "gray"
+          ? "border border-borderPrimary"
+          : "border border-borderSecondary";
+
+  const roundedClass = `rounded-${rounded}`;
 
   return (
     <label className={`grid w-full gap-1 text-end`}>
-      {label && <p className="text-textPrimary text-start font-medium">{label}</p>}
+      {label && (
+        <p className="text-start font-medium text-textPrimary">{label}</p>
+      )}
       <div className="relative w-full">
         <input
           {...props}
@@ -58,8 +64,10 @@ const Input: React.FC<InputProps> = ({
           dir={dir}
           className={`w-full px-4 py-3 ${
             inputType === "date" ? "mb-1" : ""
-          } outline-none text-textPrimary placeholder:text-textSecondary ${
-            error ? "border border-error bg-transparent" : `${themeClasses} ${borderClass}`
+          } text-textPrimary outline-none placeholder:text-textSecondary ${
+            error
+              ? "border border-error bg-transparent"
+              : `${themeClasses} ${borderClass}`
           } ${roundedClass} ${className}`}
         />
         {type === "password" && (

@@ -3,42 +3,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import Input from "~/_components/Input";
 import { Text } from "~/_components/Text";
 import { useLanguageStore } from "~/APIs/store";
-
-const translations = {
-  en: {
-    back: "Back",
-    logisticsInfo: "Logistics and Shipment Information",
-    containerType: "Container Type",
-    quantityInContainer: "Quantity in Container",
-    productDimensions: "Product Dimensions (H x W x D)",
-    productWeight: "Product Weight",
-    unselected: "Unselected",
-    test: "Test",
-    categoryName: "Category Name",
-  },
-  ar: {
-    back: "عودة",
-    logisticsInfo: "معلومات الشحن والخدمات اللوجستية",
-    containerType: "نوع الحاوية",
-    quantityInContainer: "الكمية في الحاوية",
-    productDimensions: "أبعاد المنتج (الارتفاع × العرض × العمق)",
-    productWeight: "وزن المنتج",
-    unselected: "غير محدد",
-    test: "اختبار",
-    categoryName: "اسم الفئة",
-  },
-  fr: {
-    back: "Retour",
-    logisticsInfo: "Informations logistiques et d'expédition",
-    containerType: "Type de conteneur",
-    quantityInContainer: "Quantité dans le conteneur",
-    productDimensions: "Dimensions du produit (H x L x P)",
-    productWeight: "Poids du produit",
-    unselected: "Non sélectionné",
-    test: "Test",
-    categoryName: "Nom de la catégorie",
-  },
-};
+import translations from "./translations4";
 
 const Step4 = ({ previousStep }: { previousStep: () => void }) => {
   const language = useLanguageStore((state) => state.language);

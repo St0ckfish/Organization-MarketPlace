@@ -4,58 +4,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { Text } from "~/_components/Text";
 import { useLanguageStore } from "~/APIs/store";
-
-const translations = {
-  en: {
-    back: "Back",
-    productDetailInfo: "Product Detail Information",
-    productCategory: "Product Category",
-    subCategory: "SubCategory",
-    categoryName: "Category Name",
-    productSpecification: "Product Specification",
-    material: "Material",
-    weight: "Weight",
-    productionTechnique: "Production Technique",
-    absorbency: "Absorbency",
-    productTags: "Product Tags",
-    recommendedTags: "Recommended Tags",
-    tag: "Tag",
-    test: "test",
-  },
-  ar: {
-    back: "عودة",
-    productDetailInfo: "تفاصيل المنتج",
-    productCategory: "فئة المنتج",
-    subCategory: "الفئة الفرعية",
-    categoryName: "اسم الفئة",
-    productSpecification: "مواصفات المنتج",
-    material: "المواد",
-    weight: "الوزن",
-    productionTechnique: "تقنية الإنتاج",
-    absorbency: "الامتصاص",
-    productTags: "علامات المنتج",
-    recommendedTags: "العلامات الموصى بها",
-    tag: "علامة",
-    test: "اختبار",
-  },
-  fr: {
-    back: "Retour",
-    productDetailInfo: "Détails du produit",
-    productCategory: "Catégorie de produit",
-    subCategory: "Sous-catégorie",
-    categoryName: "Nom de la catégorie",
-    productSpecification: "Spécifications du produit",
-    material: "Matériel",
-    weight: "Poids",
-    productionTechnique: "Technique de production",
-    absorbency: "Absorbance",
-    productTags: "Étiquettes du produit",
-    recommendedTags: "Étiquettes recommandées",
-    tag: "Étiquette",
-    test: "test",
-
-  },
-};
+import translations from "./translations2";
 
 const Step2 = ({ previousStep }: { previousStep: () => void }) => {
   const language = useLanguageStore((state) => state.language);

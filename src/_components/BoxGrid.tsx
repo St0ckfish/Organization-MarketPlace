@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 
 interface BoxGridProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
-  columns?: number; 
-  mdColumns?: number; 
+  columns?: number;
+  mdColumns?: number;
   gap?: number;
 }
 
@@ -23,13 +23,13 @@ interface BoxGridProps extends React.HTMLAttributes<HTMLDivElement> {
  *   <Box>Box 3</Box>
  * </BoxGrid>
  */
-const BoxGrid: React.FC<BoxGridProps> = ({ 
-  children, 
-  columns = 2, 
-  mdColumns = 1, 
-  gap = 6, 
-  className = "", 
-  ...props 
+const BoxGrid: React.FC<BoxGridProps> = ({
+  children,
+  columns = 2,
+  mdColumns = 1,
+  gap = 6,
+  className = "",
+  ...props
 }) => {
   return (
     <div

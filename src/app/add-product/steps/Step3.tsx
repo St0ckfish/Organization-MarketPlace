@@ -2,42 +2,7 @@ import React from "react";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { Text } from "~/_components/Text";
 import { useLanguageStore } from "~/APIs/store";
-
-const translations = {
-  en: {
-    back: "Back",
-    productVariantCreation: "Product Variant Creation",
-    productAttributes: "Product Attributes",
-    color: "Color",
-    style: "Style",
-    size: "Size",
-    edgeDesign: "Edge Design",
-    unselected: "Unselected",
-    test: "Test",
-  },
-  ar: {
-    back: "عودة",
-    productVariantCreation: "إنشاء خيارات المنتج",
-    productAttributes: "سمات المنتج",
-    color: "اللون",
-    style: "النمط",
-    size: "الحجم",
-    edgeDesign: "تصميم الحواف",
-    unselected: "غير محدد",
-    test: "اختبار",
-  },
-  fr: {
-    back: "Retour",
-    productVariantCreation: "Création de variantes de produit",
-    productAttributes: "Attributs du produit",
-    color: "Couleur",
-    style: "Style",
-    size: "Taille",
-    edgeDesign: "Conception des bords",
-    unselected: "Non sélectionné",
-    test: "Test",
-  },
-};
+import translations from "./translations3";
 
 const Step3 = ({ previousStep }: { previousStep: () => void }) => {
   const language = useLanguageStore((state) => state.language);

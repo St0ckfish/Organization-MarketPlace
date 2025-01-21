@@ -47,6 +47,16 @@ const translations = {
     communication: "Communication",
     meeting: "Réunions",
   },
+  ru: {
+    organization: "Организация",
+    education: "Образование",
+    social: "Социальный",
+    market: "Рынок",
+    more: "Ещё",
+    notifications: "Уведомления",
+    communication: "Связь",
+    meeting: "Встречи",
+  },
 };
 
 interface NavBarLinkProps {
