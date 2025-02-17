@@ -3,7 +3,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Spinner from "./Spinner";
 import { Switch } from "~/components/ui/switch";
@@ -21,27 +21,57 @@ import { Text } from "./Text";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { MdKeyboardArrowDown } from "react-icons/md";
+// import { useLogout } from "~/APIs/hooks/useAuth";
 
 const translations = {
   en: {
-    name: "Alex Rawles",
-    role: "Leaner",
+    userName: "Alex Rawles",
+    userRole: "Learner",
+    signedInAs: "Signed in as",
+    profile: "Profile",
+    signOut: "Sign Out",
     searchPlaceholder: "Search for Market",
+    notifications: "Notifications",
+    calendar: "Calendar",
+    theme: "Dark Mode",
+    language: "Language",
   },
   ar: {
-    name: "أليكس رولز",
-    role: "متعلم",
+    userName: "أليكس رولز",
+    userRole: "متعلم",
+    signedInAs: "مسجل الدخول باسم",
+    profile: "الملف الشخصي",
+    signOut: "تسجيل خروج",
     searchPlaceholder: "ابحث عن السوق",
+    notifications: "الإشعارات",
+    calendar: "التقويم",
+    theme: "الوضع الداكن",
+    language: "اللغة",
   },
   fr: {
-    name: "Alex Rawles",
-    role: "Apprenant",
+    userName: "Alex Rawles",
+    userRole: "Apprenant",
+    signedInAs: "Connecté en tant que",
+    profile: "Profil",
+    signOut: "Déconnexion",
     searchPlaceholder: "Rechercher sur le marché",
+    notifications: "Notifications",
+    calendar: "Calendrier",
+    theme: "Mode sombre",
+    language: "Langue",
   },
   ru: {
-    name: "Алекс Роулз",
-    role: "Ученик",
+    userName: "Алекс Роулз",
+    userRole: "Ученик",
+    signedInAs: "Вошли как",
+    profile: "Профиль",
+    signOut: "Выход",
     searchPlaceholder: "Поиск по рынку",
+    notifications: "Уведомления",
+    calendar: "Календарь",
+    theme: "Тёмный режим",
+    language: "Язык",
   },
 };
 
@@ -131,17 +161,31 @@ const localizedLabels: LocalizedLabels = {
 const NavBar = () => {
   const language = useLanguageStore((state) => state.language);
   const t = translations[language] || translations.en;
-
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const { theme, setTheme } = useTheme();
   const url = usePathname();
+  const [profile, setProfile] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  // const logout = useLogout();
 
+  // const handleLogout = () => {
+  //   logout();
+  //   window.location.href = "/login";
+  // };
+  const toggleProfile = () => {
+    setProfile((prev) => !prev);
+  };
   const handleThemeChange = (value: boolean) => {
     setTheme(value ? "dark" : "light");
   };
 
   const getLocalizedLabel = (key: string) => {
     return localizedLabels[language]?.[key] || key;
+  };
+
+  const clickProfile = () => {
+    router.push("/edit-profile");
   };
 
   useInitializeLanguage(); // Ensure language state is initialized
@@ -225,24 +269,86 @@ const NavBar = () => {
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <button
-                          id="hs-dropdown-with-header"
+                          onClick={toggleProfile}
+                          id="dropdown-trigger"
                           type="button"
-                          className="flex items-center justify-center gap-x-2 rounded-full text-sm font-semibold outline-none disabled:pointer-events-none disabled:opacity-50"
+                          className="focus:ring-none outline-none focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                         >
-                          <div className="flex items-center justify-center gap-2">
+                          <div className="flex items-center gap-3 sm:justify-center">
                             <img
-                              className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                              src="/images/productOwnder.png"
+                              className="mx-1 h-12 w-12 rounded-full ring-2 ring-bgSecondary sm:rounded-lg"
+                              src="/images/profile.png"
                               alt="User Avatar"
                             />
-                            <div className="flex flex-col">
-                              <Text>{t.name}</Text>
-                              <Text color={"gray"}>({t.role})</Text>
+                            <div className="hidden sm:flex sm:flex-col sm:items-start">
+                              <span className="font-semibold text-textPrimary">
+                                {t.userName}
+                              </span>
+                              <span className="text-sm text-textSecondary">
+                                {t.userRole}
+                              </span>
                             </div>
-                            <IoIosArrowDropdownCircle size={25} />
+                            <MdKeyboardArrowDown
+                              size={20}
+                              className="hidden text-textSecondary transition-transform duration-200 sm:block"
+                            />
                           </div>
                         </button>
                       </DropdownMenu.Trigger>
+
+                      {profile && (
+                        <DropdownMenu.Content
+                          className={`absolute ${language == "ar" ? "-left-36" : "right-0"} top-1 z-10 mt-2 min-w-[250px] rounded-lg bg-bgPrimary p-3 text-textPrimary shadow-md`}
+                          aria-labelledby="dropdown-trigger"
+                          align="end"
+                          sideOffset={5}
+                        >
+                          {/* Header */}
+                          <div className="mb-3 border-b border-bgSecondary pb-3">
+                            <p className="text-sm text-textSecondary">
+                              {t.signedInAs}
+                            </p>
+                          </div>
+
+                          {/* Links */}
+                          <div className="space-y-2">
+                            <DropdownMenu.Item asChild>
+                              <button
+                                className="flex w-full items-center gap-x-3 rounded-md px-3 py-2 text-sm text-textPrimary outline-none ring-0 hover:bg-bgSecondary hover:text-primary"
+                                onClick={() => clickProfile()}
+                              >
+                                <svg
+                                  className="h-4 w-4 flex-shrink-0"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                  <circle cx="9" cy="7" r="4" />
+                                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                                {t.profile}
+                              </button>
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Item asChild>
+                              <a
+                                // onClick={() => handleLogout()}
+                                href="/sign-in"
+                                className="flex items-center gap-x-3 rounded-md px-3 py-2 text-sm text-error outline-none hover:bg-error hover:text-white"
+                              >
+                                {t.signOut}
+                              </a>
+                            </DropdownMenu.Item>
+                          </div>
+                        </DropdownMenu.Content>
+                      )}
                     </DropdownMenu.Root>
                   </div>
                 </div>
