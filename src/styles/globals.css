@@ -27,7 +27,7 @@ html {
 .light {
   /* --primary: 62, 90, 240; #3e5af0 */
   --primary: 52, 152, 219; /* #3498DB */
-  --primary2: 0, 112, 255; /* #0070FF */
+  --primary2: 48, 138, 255; /* #308AFF */
   --primary-hover: 33, 102, 148; /* #2d85c0 */
   --primary2-hover: 13, 67, 175; /* #0d43af */
   --navLinks: 84, 101, 111; /* #54656F */

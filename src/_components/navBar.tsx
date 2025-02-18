@@ -15,11 +15,11 @@ import { FaBagShopping } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
-import { IoShareSocialSharp } from "react-icons/io5";
 import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiHome4Fill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 const translations = {
   en: {
@@ -113,11 +113,12 @@ type LocalizedLabels = Record<
 
 const navLinks = [
   { href: "/", icon: RiHome4Fill, key: "Home" },
-  { href: "/organization", icon: FaBuildingColumns, key: "organization" },
-  { href: "/education", icon: RiBook3Fill, key: "education" },
-  { href: "/market", icon: FaBagShopping, key: "market" },
-  { href: "/communication", icon: FaUsers, key: "communication" },
-  { href: "/meeting", icon: FaVideo, key: "meeting" },
+  { href: "/user", icon: FaUser, key: "User" },
+  { href: "/organization", icon: FaBuildingColumns, key: "Organization" },
+  { href: "/education", icon: RiBook3Fill, key: "Education" },
+  { href: "/market", icon: FaBagShopping, key: "Market" },
+  { href: "/communication", icon: FaUsers, key: "Communication" },
+  { href: "/meeting", icon: FaVideo, key: "Meeting" },
 ];
 
 const localizedLabels: LocalizedLabels = {
