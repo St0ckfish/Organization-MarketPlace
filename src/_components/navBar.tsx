@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Spinner from "./Spinner";
 import { Switch } from "~/components/ui/switch";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import Cookie from "js-cookie";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { RiBook3Fill } from "react-icons/ri";
@@ -17,12 +16,10 @@ import { FaVideo } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { IoShareSocialSharp } from "react-icons/io5";
-import { Text } from "./Text";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { MdKeyboardArrowDown } from "react-icons/md";
-// import { useLogout } from "~/APIs/hooks/useAuth";
+import { RiHome4Fill } from "react-icons/ri";
 
 const translations = {
   en: {
@@ -115,7 +112,7 @@ type LocalizedLabels = Record<
 >;
 
 const navLinks = [
-  { href: "/", icon: IoShareSocialSharp, key: "social" },
+  { href: "/", icon: RiHome4Fill, key: "Home" },
   { href: "/organization", icon: FaBuildingColumns, key: "organization" },
   { href: "/education", icon: RiBook3Fill, key: "education" },
   { href: "/market", icon: FaBagShopping, key: "market" },
