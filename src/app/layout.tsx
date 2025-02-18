@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { TRPCReactProvider } from "~/trpc/react";
 import NavBar from "../_components/navBar";
 import ThemeProvider from "./providers/themeProvider";
-import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import NavBarMobile from "~/_components/navBarMobile";
+import NavBarMobileTop from "~/_components/navBarMobileTop";
+import NavBarMobileBottom from "~/_components/navBarMobileBottom";
 
 export default function RootLayout({
   children,
@@ -20,69 +20,7 @@ export default function RootLayout({
     pathname === "/reset-password" ||
     pathname === "/change-password";
 
-  // useEffect(() => {
-  //   (document.documentElement.style as any).zoom = "1";
-
-  //   const handleZoom = (e: WheelEvent | KeyboardEvent) => {
-  //     if ((e as KeyboardEvent).ctrlKey || (e as WheelEvent).ctrlKey) {
-  //       e.preventDefault();
-
-  //       const currentZoom = (document.documentElement.style as any).zoom
-  //         ? parseFloat((document.documentElement.style as any).zoom)
-  //         : 1;
-
-  //       let newZoom = currentZoom;
-
-  //       if (e.type === "wheel") {
-  //         const wheelEvent = e as WheelEvent;
-  //         if (wheelEvent.deltaY < 0) {
-  //           newZoom = Math.min(currentZoom + 0.1, 1.1);
-  //         } else {
-  //           newZoom = Math.max(currentZoom - 0.1, 0.7);
-  //         }
-  //       }
-
-  //       if (e.type === "keydown") {
-  //         const keyEvent = e as KeyboardEvent;
-  //         if (keyEvent.key === "+" || keyEvent.key === "=") {
-  //           newZoom = Math.min(currentZoom + 0.1, 1.1);
-  //         } else if (keyEvent.key === "-") {
-  //           newZoom = Math.max(currentZoom - 0.1, 0.7);
-  //         }
-  //       }
-
-  //       (document.documentElement.style as any).zoom = newZoom.toString();
-  //     }
-  //   };
-
-  //   const handleTouchMove = (e: TouchEvent) => {
-  //     if (e.touches.length > 1) {
-  //       e.preventDefault();
-  //     }
-  //   };
-
-  //   let lastTouchEnd = 0;
-  //   const handleTouchEnd = (e: TouchEvent) => {
-  //     const now = Date.now();
-  //     if (now - lastTouchEnd <= 300) {
-  //       e.preventDefault();
-  //     }
-  //     lastTouchEnd = now;
-  //   };
-
-  //   window.addEventListener("wheel", handleZoom as any, { passive: false });
-  //   window.addEventListener("keydown", handleZoom as any);
-  //   document.addEventListener("touchmove", handleTouchMove, { passive: false });
-  //   document.addEventListener("touchend", handleTouchEnd, { passive: false });
-
-  //   return () => {
-  //     window.removeEventListener("wheel", handleZoom as any);
-  //     window.removeEventListener("keydown", handleZoom as any);
-  //     document.removeEventListener("touchmove", handleTouchMove);
-  //     document.removeEventListener("touchend", handleTouchEnd);
-  //   };
-  // }, []);
-
+  const isEditProfile = pathname.includes("/edit-profile");
   return (
     <html
       lang="en"
@@ -90,8 +28,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <title>Organization</title>
-        <meta name="description" content="MarketPlace Organization" />
+        <title>Opream Organization</title>
+        <meta name="description" content="Opream Organization" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, initial-scale=1.0, user-scalable=yes"
@@ -106,7 +44,8 @@ export default function RootLayout({
                 <NavBar />
               </div>
               <div className="block md:hidden">
-                <NavBarMobile />
+                {!isEditProfile && <NavBarMobileTop />}
+                <NavBarMobileBottom />
               </div>
             </>
           )}
