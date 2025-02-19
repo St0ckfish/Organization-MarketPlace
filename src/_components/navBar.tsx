@@ -313,9 +313,8 @@ const NavBar = () => {
                           {/* Links */}
                           <div className="space-y-2">
                             <DropdownMenu.Item asChild>
-                              <button
+                              <Link href="/profile"
                                 className="flex w-full items-center gap-x-3 rounded-md px-3 py-2 text-sm text-textPrimary outline-none ring-0 hover:bg-bgSecondary hover:text-primary"
-                                onClick={() => clickProfile()}
                               >
                                 <svg
                                   className="h-4 w-4 flex-shrink-0"
@@ -335,7 +334,7 @@ const NavBar = () => {
                                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                                 {t.profile}
-                              </button>
+                              </Link>
                             </DropdownMenu.Item>
                             <DropdownMenu.Item asChild>
                               <a
