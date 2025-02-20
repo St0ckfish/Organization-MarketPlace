@@ -43,7 +43,7 @@ const Step4 = ({ previousStep }: { previousStep: () => void }) => {
           </div>
           <div className="w-full md:w-80">
             <Input
-                label={t.quantityInContainer}
+              label={t.quantityInContainer}
               type="number"
               theme="transparent"
               className="w-full"
@@ -52,7 +52,7 @@ const Step4 = ({ previousStep }: { previousStep: () => void }) => {
           </div>
           <div>
             <label className="font-semibold" htmlFor="currency">
-            {t.productDimensions}
+              {t.productDimensions}
             </label>
             <select
               name="currency"

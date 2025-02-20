@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Spinner from "./Spinner";
 import { Switch } from "~/components/ui/switch";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import Cookie from "js-cookie";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { RiBook3Fill } from "react-icons/ri";
@@ -16,13 +15,11 @@ import { FaBagShopping } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
-import { IoShareSocialSharp } from "react-icons/io5";
-import { Text } from "./Text";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useInitializeLanguage, useLanguageStore } from "~/APIs/store";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { MdKeyboardArrowDown } from "react-icons/md";
-// import { useLogout } from "~/APIs/hooks/useAuth";
+import { RiHome4Fill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 const translations = {
   en: {
@@ -115,12 +112,13 @@ type LocalizedLabels = Record<
 >;
 
 const navLinks = [
-  { href: "/", icon: IoShareSocialSharp, key: "social" },
-  { href: "/organization", icon: FaBuildingColumns, key: "organization" },
-  { href: "/education", icon: RiBook3Fill, key: "education" },
-  { href: "/market", icon: FaBagShopping, key: "market" },
-  { href: "/communication", icon: FaUsers, key: "communication" },
-  { href: "/meeting", icon: FaVideo, key: "meeting" },
+  { href: "/", icon: RiHome4Fill, key: "Home" },
+  { href: "/user", icon: FaUser, key: "User" },
+  { href: "/organization", icon: FaBuildingColumns, key: "Organization" },
+  { href: "/education", icon: RiBook3Fill, key: "Education" },
+  { href: "/market", icon: FaBagShopping, key: "Market" },
+  { href: "/communication", icon: FaUsers, key: "Communication" },
+  { href: "/meeting", icon: FaVideo, key: "Meeting" },
 ];
 
 const localizedLabels: LocalizedLabels = {
@@ -313,7 +311,8 @@ const NavBar = () => {
                           {/* Links */}
                           <div className="space-y-2">
                             <DropdownMenu.Item asChild>
-                              <Link href="/profile"
+                              <Link
+                                href="/profile"
                                 className="flex w-full items-center gap-x-3 rounded-md px-3 py-2 text-sm text-textPrimary outline-none ring-0 hover:bg-bgSecondary hover:text-primary"
                               >
                                 <svg

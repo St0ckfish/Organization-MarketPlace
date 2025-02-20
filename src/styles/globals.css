@@ -25,9 +25,8 @@ html {
   -ms-touch-action: pan-x pan-y;
 }
 .light {
-  /* --primary: 62, 90, 240; #3e5af0 */
   --primary: 52, 152, 219; /* #3498DB */
-  --primary2: 0, 112, 255; /* #0070FF */
+  --primary2: 48, 138, 255; /* #308AFF */
   --primary-hover: 33, 102, 148; /* #2d85c0 */
   --primary2-hover: 13, 67, 175; /* #0d43af */
   --navLinks: 84, 101, 111; /* #54656F */
@@ -45,14 +44,14 @@ html {
   --text-secondary: 127, 140, 141; /* #7F8C8D */
   --text-muted: 108, 108, 108; /* #6c6c6c */
   --bg-powder-blue: 180, 192, 204; /* #b4c0cc */
-  --warning: 244, 189, 14; /* #f4bd0e */
+  --warning: 244, 189, 14; /* #F79009 */
   --error: 229, 56, 53; /* #e53835 */
   --soft-red: 255, 127, 116; /* #ff7f74 */
   --success: 46, 204, 113; /* #2ECC71 */
   --pink: 255, 136, 250; /* #FF88FA */
   --limeGreen: 147, 213, 10; /* #93D50A */
   --info: 9, 194, 222; /* #09c2de */
-  --lavender: 172, 148, 236; /* #ac94ec */
+  --lavender: 172, 148, 236; /* #9747FF */
   --border-primary: 217, 217, 217; /* #d9d9d9 */
   --border-secondary: 103, 116, 137;  /* #677489 */
   --border-input: 166, 187, 209; /* #A6BBD1 */

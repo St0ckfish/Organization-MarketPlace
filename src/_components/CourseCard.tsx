@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Text } from "./Text";
 import { LuBookText } from "react-icons/lu";
 import { FaRegClock } from "react-icons/fa";
 import { PiGraduationCapLight } from "react-icons/pi";
 
-const CourseCard = ({ course }: any) => {
+const CourseCard = ({ course, progress }: any) => {
   return (
     <div className="flex flex-col rounded-2xl bg-bgPrimary shadow-md">
       {/* Header Section */}
@@ -22,13 +23,17 @@ const CourseCard = ({ course }: any) => {
           <span className="rounded-full bg-bgFourth px-3 py-1 text-sm text-textPrimary">
             {course.category}
           </span>
-          <div className="h-2 flex-1 overflow-hidden rounded-full bg-bgSecondary font-medium">
-            <div
-              className="h-full bg-primary"
-              style={{ width: `${course.progress}%` }}
-            ></div>
-          </div>
-          <span className="text-sm">{course.progress}%</span>
+          {progress && (
+            <>
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-bgSecondary font-medium">
+                <div
+                  className="h-full bg-primary"
+                  style={{ width: `${course.progress}%` }}
+                ></div>
+              </div>
+              <span className="text-sm">{course.progress}%</span>
+            </>
+          )}
         </div>
         <Text size="lg" font="semiBold" color="default" className="h-14">
           {course.title}

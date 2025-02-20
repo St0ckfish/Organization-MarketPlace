@@ -104,30 +104,29 @@ function CalendarPage() {
     },
   ];
 
-
-const events = [
-  {
-    title: "Daily Meeting",
-    subtitle: "Opream Dev",
-    time: t.allDay,
-    bgColor: "bg-primary/10",
-    textColor: "text-primary",
-  },
-  {
-    title: "Task",
-    subtitle: "Ux and Ui",
-    time: "07:20 AM",
-    bgColor: "bg-pink/10",
-    textColor: "text-pink",
-  },
-  {
-    title: "Events",
-    subtitle: "Festivals",
-    time: "07:20 AM",
-    bgColor: "bg-warning/10",
-    textColor: "text-warning",
-  },
-];
+  const events = [
+    {
+      title: "Daily Meeting",
+      subtitle: "Opream Dev",
+      time: t.allDay,
+      bgColor: "bg-primary/10",
+      textColor: "text-primary",
+    },
+    {
+      title: "Task",
+      subtitle: "Ux and Ui",
+      time: "07:20 AM",
+      bgColor: "bg-pink/10",
+      textColor: "text-pink",
+    },
+    {
+      title: "Events",
+      subtitle: "Festivals",
+      time: "07:20 AM",
+      bgColor: "bg-warning/10",
+      textColor: "text-warning",
+    },
+  ];
 
   const [screenWidth, setScreenWidth] = useState<number>(768); // Set a default value
 
@@ -353,7 +352,9 @@ const events = [
                                   {event.event}
                                 </div>
                               )}
-                              <span className={`absolute right-2 top-2 text-xs text-textSecondary`}>
+                              <span
+                                className={`absolute right-2 top-2 text-xs text-textSecondary`}
+                              >
                                 {rowIndex}
                               </span>
                             </div>
@@ -442,7 +443,9 @@ const events = [
                         </div>
                       ))}
                     </div>
-                    <button className={`absolute -top-3 ${language === "ar" ? "left-2" : "right-2"} flex items-center justify-center rounded-full bg-primary p-3 text-white shadow-lg`}>
+                    <button
+                      className={`absolute -top-3 ${language === "ar" ? "left-2" : "right-2"} flex items-center justify-center rounded-full bg-primary p-3 text-white shadow-lg`}
+                    >
                       <IoCalendarNumberOutline
                         size={18}
                         onClick={() => {
@@ -509,10 +512,10 @@ const events = [
                               className="rounded-xl bg-primary/10 p-2 text-primary"
                             />
                             <div>
-                              <p className="text-sm mx-2 font-medium">
+                              <p className="mx-2 text-sm font-medium">
                                 {reminder.title}
                               </p>
-                              <p className="cursor-pointer mx-2 text-xs text-primary md:text-primary2">
+                              <p className="mx-2 cursor-pointer text-xs text-primary md:text-primary2">
                                 {reminder.action}
                               </p>
                             </div>
