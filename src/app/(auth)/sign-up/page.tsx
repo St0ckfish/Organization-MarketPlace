@@ -54,9 +54,10 @@ function Signup() {
       >
         <LanguageSwitcher />
       </div>
-      <div 
-      dir={`${language === "ar" ? "rtl" : "ltr"}`}
-      className="flex h-screen">
+      <div
+        dir={`${language === "ar" ? "rtl" : "ltr"}`}
+        className="flex h-screen"
+      >
         {/* Left Section */}
         <div className="flex max-h-screen w-full justify-center overflow-auto bg-bgPrimary py-16 scrollbar-hide md:w-1/2 xl:w-3/5">
           <div className="w-4/5 lg:w-2/3 xl:w-1/2">

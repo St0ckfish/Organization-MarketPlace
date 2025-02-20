@@ -1,7 +1,8 @@
 const translations = {
   en: {
     createAccount: "Create a new account",
-    description: "It's not difficult, you just need to enter some data and you're done!",
+    description:
+      "It's not difficult, you just need to enter some data and you're done!",
     fullName: "Full Name",
     firstName: "First Name",
     lastName: "Last Name",
@@ -22,7 +23,8 @@ const translations = {
     academicAccreditation: "Academic accreditation",
     browseOrDrop: "Browse or Drop",
     establishmentDecision: "Establishment decision",
-    agreeTerms: "By registering, you agree to the Terms of Service and Privacy Policy.",
+    agreeTerms:
+      "By registering, you agree to the Terms of Service and Privacy Policy.",
     signUp: "Sign Up",
   },
   ar: {
@@ -53,7 +55,8 @@ const translations = {
   },
   fr: {
     createAccount: "Créer un nouveau compte",
-    description: "Ce n'est pas difficile, il vous suffit d'entrer quelques données et c'est tout!",
+    description:
+      "Ce n'est pas difficile, il vous suffit d'entrer quelques données et c'est tout!",
     fullName: "Nom complet",
     firstName: "Prénom",
     lastName: "Nom de famille",
@@ -74,7 +77,8 @@ const translations = {
     academicAccreditation: "Accréditation académique",
     browseOrDrop: "Parcourir ou déposer",
     establishmentDecision: "Décision d'établissement",
-    agreeTerms: "En vous inscrivant, vous acceptez les Conditions de service et la Politique de confidentialité.",
+    agreeTerms:
+      "En vous inscrivant, vous acceptez les Conditions de service et la Politique de confidentialité.",
     signUp: "S'inscrire",
   },
   ru: {
@@ -100,7 +104,8 @@ const translations = {
     academicAccreditation: "Академическая аккредитация",
     browseOrDrop: "Просмотреть или перетащить",
     establishmentDecision: "Решение об учреждении",
-    agreeTerms: "Регистрируясь, вы соглашаетесь с Условиями использования и Политикой конфиденциальности.",
+    agreeTerms:
+      "Регистрируясь, вы соглашаетесь с Условиями использования и Политикой конфиденциальности.",
     signUp: "Зарегистрироваться",
   },
 };

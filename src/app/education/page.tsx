@@ -375,7 +375,7 @@ const Education = () => {
                         href="#"
                         className="mt-4 inline-flex items-center font-bold text-primary hover:underline"
                       >
-                       {t.learnMore}
+                        {t.learnMore}
                         {language == "ar" ? (
                           <FaArrowLeft size={22} className="mx-1" />
                         ) : (

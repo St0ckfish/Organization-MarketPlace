@@ -122,7 +122,11 @@ function User() {
               />
             </div>
             <div className="w-fit">
-              <Button onClick={() => router.push("/user/add-staff")} className="px-8" color="primary2">
+              <Button
+                onClick={() => router.push("/user/add-staff")}
+                className="px-8"
+                color="primary2"
+              >
                 {t.addStaff}
               </Button>
             </div>
@@ -144,7 +148,9 @@ function User() {
                       <span className="text-lg">⋮</span>
                     </button>
                   </div>
-                  <Text size={"xl"} font={"semiBold"} className="mt-4">{user.name}</Text>
+                  <Text size={"xl"} font={"semiBold"} className="mt-4">
+                    {user.name}
+                  </Text>
                   <Text color={"gray"}>{user.role}</Text>
                   <Text color={"gray"} size={"sm"} className="mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit...

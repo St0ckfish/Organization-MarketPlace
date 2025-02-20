@@ -20,7 +20,6 @@ import Step4 from "./steps/Step4";
 import Step5 from "./steps/Step5";
 import translations from "./translations";
 
-
 const AddProduct = () => {
   const language = useLanguageStore((state) => state.language);
   const t = translations[language];

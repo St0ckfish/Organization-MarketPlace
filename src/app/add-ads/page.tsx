@@ -16,8 +16,8 @@ import { RiDeleteBinLine } from "react-icons/ri";
 
 function AddAds() {
   const language = useLanguageStore((state) => state.language);
-  const [fileName, setFileName] = useState<string | null>(null);
   const t = translations[language];
+  const [fileName, setFileName] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -191,7 +191,7 @@ function Dashboard() {
       <Container ml={false} mr={false} mt={false}>
         <Box rounded="none" className="pb-40">
           <div className="flex flex-col lg:flex-row">
-            <div className="p-4 lg:p-0 w-full lg:w-3/4">
+            <div className="w-full p-4 lg:w-3/4 lg:p-0">
               {/* Overview and four divs */}
               <div>
                 <div className="mb-4 flex items-center justify-between">
@@ -226,7 +226,7 @@ function Dashboard() {
                 </div>
               </div>
               {/* Charts and events */}
-              <div className="mt-6 flex flex-col lg:flex-row gap-6">
+              <div className="mt-6 flex flex-col gap-6 lg:flex-row">
                 <div className="w-full lg:w-3/5">
                   <div className="rounded-lg bg-bgSecondary p-6 shadow">
                     <Text size="lg" font="bold">
@@ -313,7 +313,7 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="mt-6 lg:mt-0 md:p-6">
+              <div className="mt-6 md:p-6 lg:mt-0">
                 <div className="flex justify-between px-4">
                   <Text size="2xl" font="semiBold">
                     {t.myCourses}
@@ -402,7 +402,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="mx-4 w-full lg:w-1/4 lg:border-l border-borderPrimary/50 md:px-6">
+            <div className="mx-4 w-full border-borderPrimary/50 md:px-6 lg:w-1/4 lg:border-l">
               <div className="mt-2">
                 <Text size="lg" font="bold" className="mb-4">
                   {t.notifications}

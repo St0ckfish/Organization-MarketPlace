@@ -9,8 +9,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const isAuthRoute = config.url?.includes('/login') ?? config.url?.includes('/signup');
-    
+    const isAuthRoute =
+      config.url?.includes("/login") ?? config.url?.includes("/signup");
+
     if (!isAuthRoute) {
       const token = Cookies?.get("token");
       if (token) {

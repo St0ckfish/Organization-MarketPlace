@@ -25,16 +25,15 @@ const CourseCard = ({ course, progress }: any) => {
           </span>
           {progress && (
             <>
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-bgSecondary font-medium">
-              <div
-                className="h-full bg-primary"
-                style={{ width: `${course.progress}%` }}
-              ></div>
-            </div>
-          <span className="text-sm">{course.progress}%</span>
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-bgSecondary font-medium">
+                <div
+                  className="h-full bg-primary"
+                  style={{ width: `${course.progress}%` }}
+                ></div>
+              </div>
+              <span className="text-sm">{course.progress}%</span>
             </>
           )}
-
         </div>
         <Text size="lg" font="semiBold" color="default" className="h-14">
           {course.title}
