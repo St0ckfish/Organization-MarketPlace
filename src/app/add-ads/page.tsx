@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { TbPhotoPlus } from "react-icons/tb";
@@ -5,18 +6,19 @@ import Box from "~/_components/Box";
 import Container from "~/_components/Container";
 import Input from "~/_components/Input";
 import { Text } from "~/_components/Text";
-import translations from "../add-product/steps/translations1";
 import { useState } from "react";
 import { useLanguageStore } from "~/APIs/store";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import Button from "~/_components/Button";
-import { BsFileEarmarkText } from "react-icons/bs";
+import translations from "./translations";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 function AddAds() {
   const language = useLanguageStore((state) => state.language);
   const [fileName, setFileName] = useState<string | null>(null);
   const t = translations[language];
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -27,28 +29,28 @@ function AddAds() {
   return (
     <>
       <Container mr={false} ml={false} mt={false}>
-        <Box>
+        <Box className="pb-28">
           <div className="flex flex-col items-center justify-center">
             <div className="w-3/5">
               <Text
                 className="text-xl md:text-2xl md:text-primary2"
                 font={"bold"}
               >
-                Describe your campaign bellow
+                {t.describeCampaign}
               </Text>
               <form className="mt-4 flex flex-col gap-4">
                 <Input
-                  label="Ad Name *"
+                  label={t.adName}
                   border="gray"
                   type="text"
-                  placeholder="Promotion Ads"
+                  placeholder={t.promotionAds}
                   theme="transparent"
                 />
                 <Input
-                  label="Ad Title *"
+                  label={t.adTitle}
                   border="gray"
                   type="text"
-                  placeholder="Get 70% Off Discount From Westered"
+                  placeholder={t.getDiscount}
                   theme="transparent"
                 />
 
@@ -79,7 +81,7 @@ function AddAds() {
                   </div>
                 </div>
                 <Input
-                  label="Description *"
+                  label={t.description}
                   border="gray"
                   type="text"
                   placeholder={t.productDescriptionPlaceholder}
@@ -87,10 +89,10 @@ function AddAds() {
                   className="pb-14"
                 />
                 <Text size={"2xl"} font={"bold"}>
-                  Tags
+                  {t.tags}
                 </Text>
                 <Text color={"limeGreen"} font={"bold"}>
-                  Recommended Tags
+                  {t.recommendedTags}
                 </Text>
                 <div>
                   <div className="flex flex-wrap gap-4">
@@ -103,7 +105,7 @@ function AddAds() {
                           className="text-primary md:text-primary2"
                           font={"semiBold"}
                         >
-                          Tag {index + 1}
+                          {t.tags} {index + 1}
                         </Text>
                         {index % 2 === 0 ? (
                           <FaRegCircleCheck size={25} />
@@ -116,7 +118,7 @@ function AddAds() {
                 </div>
                 <div className="w-full lg:w-96">
                   <Input
-                    label="Set Budget"
+                    label={t.setBudget}
                     type="number"
                     theme="transparent"
                     className="w-full"
@@ -126,50 +128,83 @@ function AddAds() {
                 <div className="flex flex-col justify-between gap-8 lg:flex-row">
                   <Input
                     type="date"
-                    label="Date Start"
+                    label={t.dateStart}
                     border="gray"
                     theme="transparent"
                   />
                   <Input
                     type="date"
-                    label="Date End"
+                    label={t.dateEnd}
                     border="gray"
                     theme="transparent"
                   />
                 </div>
               </form>
-              <div className="mt-6 flex justify-between w-full gap-4">
-                <div className="w-fit ">
-                <Button
-                  color="primary2"
-                  theme="outline"
-                  className="hidden cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary md:flex"
-                >
-                  Cancel
-                </Button>
+              <div className="mt-6 flex w-full justify-between gap-4">
+                <div className="w-fit">
+                  <Button
+                    color="primary2"
+                    theme="outline"
+                    className="hidden cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary md:flex"
+                  >
+                    <RiDeleteBinLine />
+                    {t.cancel}
+                  </Button>
                 </div>
                 <div className="flex gap-4">
-                <Button
-                  color="primary2"
-                  theme="outline"
-                  className="hidden cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary md:flex"
-                >
-                  Preview
-                </Button>
-                <div className="w-full">
-                  <div className="block">
-                    <Button color="primary2">
-                      publish
-                      <FaRegCircleCheck size={25} />
-                    </Button>
+                  <Button
+                    color="primary2"
+                    theme="outline"
+                    className="hidden cursor-pointer rounded-lg border bg-primary2 px-4 py-2 font-bold text-primary2 hover:bg-bgSecondary md:flex"
+                  >
+                    {t.preview}
+                  </Button>
+                  <div className="w-full">
+                    <div className="block">
+                      <Button
+                        color="primary2"
+                        onClick={() => setIsModalOpen(true)}
+                      >
+                        Publish <FaRegCircleCheck size={25} />
+                      </Button>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
           </div>
         </Box>
       </Container>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setIsModalOpen(false)} // Close modal when clicking outside
+        >
+          <div
+            className="relative h-[400px] w-[300px] rounded-lg bg-bgPrimary p-6 text-center shadow-lg"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            <img
+              src="/images/Bubbles.png"
+              alt="Bubbles"
+              className="absolute z-10"
+            />
+            <img
+              src="/images/Verified.png"
+              alt="Verified"
+              className="absolute left-1/2 top-44 z-20 -translate-x-1/2 -translate-y-1/2 transform"
+            />
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 transform text-center">
+              <Text size={"lg"} font={"bold"}>
+                {t.congratulations}
+              </Text>
+              <Text font={"semiBold"} size={"sm"} color={"gray"}>
+                {t.campaignPublished}
+              </Text>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

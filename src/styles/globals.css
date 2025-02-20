@@ -25,7 +25,6 @@ html {
   -ms-touch-action: pan-x pan-y;
 }
 .light {
-  /* --primary: 62, 90, 240; #3e5af0 */
   --primary: 52, 152, 219; /* #3498DB */
   --primary2: 48, 138, 255; /* #308AFF */
   --primary-hover: 33, 102, 148; /* #2d85c0 */

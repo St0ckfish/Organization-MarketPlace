@@ -20,7 +20,6 @@ const Education = () => {
   const language = useLanguageStore((state) => state.language);
   const t = translations[language] || translations.en;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
   const courses = [
     {
       image: "/images/course_thumb.png",
@@ -151,15 +150,15 @@ const Education = () => {
   ];
 
   const categories = [
-    { name: "Events", icon: "/images/events.png", url: "/events" },
+    { name: t.events, icon: "/images/events.png", url: "/events" },
     {
-      name: "Workshop",
+      name: t.workshop,
       icon: "/images/Graph Presentation.png",
       url: "/workshop",
     },
-    { name: "Program", icon: "/images/elearning.png", url: "/program" },
+    { name: t.program, icon: "/images/elearning.png", url: "/program" },
     {
-      name: "Scholarship",
+      name: t.scholarship,
       icon: "/images/Education Expenses, College Education Pricing.png",
       url: "/scholarship",
     },
@@ -237,7 +236,7 @@ const Education = () => {
                   <div className="w-full p-6">
                     <div className="flex items-center justify-between">
                       <Text size={"xl"} font={"semiBold"}>
-                        Events
+                        {t.events}
                       </Text>
                       <Text
                         size="sm"
@@ -294,7 +293,7 @@ const Education = () => {
                 <div className="p-6">
                   <div className="flex justify-between px-4">
                     <Text size="2xl" font="semiBold">
-                      Other Courses
+                      {t.otherCourses}
                     </Text>
                     <Text
                       size="sm"
@@ -316,7 +315,7 @@ const Education = () => {
                   </div>
                 </div>
                 <Text size={"2xl"} font={"bold"} className="-mb-6 mt-4 px-6">
-                  Top Scholarship
+                  {t.topScholarship}
                 </Text>
                 <div className="mt-8 flex flex-col gap-6 md:p-6 lg:flex-row">
                   <div className="flex w-full flex-col items-center lg:w-1/2">
@@ -327,7 +326,7 @@ const Education = () => {
                     />
                     <div className="h-30 relative -top-10 w-4/5 rounded-xl bg-bgPrimary p-4 shadow-md">
                       <Text font={"bold"} size={"xl"}>
-                        Scholarship
+                        {t.scholarship}
                       </Text>
                       <Text
                         size={"sm"}
@@ -343,7 +342,7 @@ const Education = () => {
                         href="/scholarship-details"
                         className="mt-4 inline-flex items-center font-bold text-primary hover:underline"
                       >
-                        Learn More
+                        {t.learnMore}
                         {language == "ar" ? (
                           <FaArrowLeft size={22} className="mx-1" />
                         ) : (
@@ -360,7 +359,7 @@ const Education = () => {
                     />
                     <div className="h-30 relative -top-10 w-4/5 rounded-xl bg-bgPrimary p-4 shadow-md">
                       <Text font={"bold"} size={"xl"}>
-                        Scholarship
+                        {t.scholarship}
                       </Text>
                       <Text
                         size={"sm"}
@@ -376,7 +375,7 @@ const Education = () => {
                         href="#"
                         className="mt-4 inline-flex items-center font-bold text-primary hover:underline"
                       >
-                        Learn More
+                       {t.learnMore}
                         {language == "ar" ? (
                           <FaArrowLeft size={22} className="mx-1" />
                         ) : (
@@ -392,7 +391,7 @@ const Education = () => {
                   {/* Button to Toggle Modal */}
                   <Button onClick={handleClickModal} color="primary2">
                     <FaUserGear />
-                    Manage Education
+                    {t.manageEducation}
                   </Button>
 
                   {/* Modal */}
@@ -404,17 +403,17 @@ const Education = () => {
                             key={index}
                             className="flex flex-col items-center space-y-2"
                           >
-                            <Link href={category.url} >
+                            <Link href={category.url}>
                               <img
                                 src={category.icon}
                                 alt={category.name}
                                 width={50}
                                 height={50}
-                                />
+                              />
                               <span className="text-lg font-semibold text-textPrimary">
                                 {category.name}
                               </span>
-                                </Link>
+                            </Link>
                           </div>
                         ))}
                       </div>
@@ -423,7 +422,7 @@ const Education = () => {
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">Events</h2>
+                    <h2 className="text-xl font-semibold">{t.events}</h2>
                   </div>
 
                   <div className="mt-4 space-y-4">
@@ -449,7 +448,7 @@ const Education = () => {
                               {meetup.date}
                             </Text>
                             <h3 className="text-lg font-semibold text-textPrimary">
-                              Meetup Name
+                              {t.meetupName}
                             </h3>
 
                             {/* Progress Bar */}
@@ -470,7 +469,7 @@ const Education = () => {
 
                             {/* Interested People */}
                             <Text size={"sm"} className="mt-1">
-                              23 Interested in the meetup
+                              23 {t.interestedInMeetup}
                             </Text>
                           </div>
                         </div>
